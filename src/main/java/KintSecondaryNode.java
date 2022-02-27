@@ -19,6 +19,12 @@ public class KintSecondaryNode extends ApplicationNode
         _superNode = superNode;
     }
 
+    public KintSecondaryNode(String superNode) throws DrasylException {
+        super();
+        _superNode = superNode;
+    }
+
+
     @Override public void turnOff()
     {
 
