@@ -55,22 +55,27 @@ public class MasterNode extends DrasylNode {
         }
     }
 
-
+    //Returns the value to which argument key is mapped in _storage, or null
+    //if _storage contains no mapping for argument key
     private String read(int key)  {
-
-        return "";
+        return _storage.get(key);
     }
 
+    //If _storage previously contained a mapping for argument key, the old value is replaced by argument value.
+    //If _storage previously did not contain a mapping for argument key, maps argument key to argument value.
     private void update(int key, String value) {
-
+        _storage.put(key, value);
     }
 
+    //If _storage previously did not contain a mapping for argument key, maps argument key to argument value.
+    //If _storage previously contained a mapping for argument key, the old value is replaced by argument value.
     private void create(int key, String value) {
-
+        _storage.put(key, value);
     }
 
+    //Removes the mapping for argument key from _storage, if mapping exists.
     private void delete(int key) {
-
+        _storage.remove(key);
     }
 
 }
