@@ -30,7 +30,7 @@ public class MasterNode extends DrasylNode {
         {
             Object payload = ((MessageEvent) event).getPayload();
             MessageRequest messagePayload = (MessageRequest) payload;
-            //GET, POST, PATCH, REMOVE
+            //GET, POST, UPDATE, REMOVE
             switch (messagePayload.getRequest())
             {
             case GET:

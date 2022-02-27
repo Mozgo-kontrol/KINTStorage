@@ -19,7 +19,6 @@ public class Message
     {
         return messageType;
     }
-
     public String getMessageValue()
     {
         return messageValue;
