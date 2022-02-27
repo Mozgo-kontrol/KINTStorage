@@ -7,9 +7,17 @@ import org.drasyl.node.event.NodeOnlineEvent;
 import org.json.simple.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 public class KintSecondaryNode extends ApplicationNode
 {
+
+    private Storage _localeStorage = new Storage();
+
+    private HashMap<Integer, String> _storage = _localeStorage.getStorage();
+
+
+
     private boolean _online;
 
     private String _superNode;

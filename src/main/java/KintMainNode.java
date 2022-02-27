@@ -14,7 +14,11 @@ import java.util.*;
 public class KintMainNode extends ApplicationNode
 {
 
-    private boolean online = false;
+    private Storage _localeStorage = new Storage();
+    private HashMap<Integer, String> _storage = _localeStorage.getStorage();
+
+    private boolean _online = false;
+
 
 
     //Address allen Knoten im Netz
@@ -28,6 +32,7 @@ public class KintMainNode extends ApplicationNode
     {
         super(config);
         sendHeartbeat(5000);
+
     }
     protected KintMainNode() throws DrasylException {
         super();
@@ -79,7 +84,7 @@ public class KintMainNode extends ApplicationNode
     @Override public void onEvent(Event event)
     {
         if (event instanceof NodeOnlineEvent) {
-            online = true;
+            _online = true;
         }
 
         if (event instanceof MessageEvent) {

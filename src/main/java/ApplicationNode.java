@@ -2,6 +2,8 @@ import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
 import org.drasyl.node.DrasylNode;
 
+import java.util.HashMap;
+
 public abstract class ApplicationNode extends DrasylNode
 {
 
@@ -15,4 +17,5 @@ public abstract class ApplicationNode extends DrasylNode
     }
 
     public abstract void turnOff();
+
 }
