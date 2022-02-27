@@ -73,6 +73,4 @@ public class Utility
             return map_from_file;
         }
     }
-
-
 }

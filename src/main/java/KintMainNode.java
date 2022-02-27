@@ -22,7 +22,7 @@ public class KintMainNode extends ApplicationNode
 
 
     //Address allen Knoten im Netz
-    private Set<DrasylAddress> addressSet = new HashSet<>();
+    private Set<DrasylAddress> _addressSet = new HashSet<>();
 
 
 
@@ -41,9 +41,11 @@ public class KintMainNode extends ApplicationNode
 
     @Override public void turnOff()
     {
-        for (DrasylAddress address : addressSet) {
+        for (DrasylAddress address : _addressSet) {
             send(address, "SuperShutdown");
         }
+        // Save to file
+        Utility.saveHashmapToFile(_storage);
 
         System.out.println("Turning off");
         shutdown();
@@ -55,7 +57,7 @@ public class KintMainNode extends ApplicationNode
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                for (DrasylAddress address : addressSet) {
+                for (DrasylAddress address : _addressSet) {
                     String payload = "Heartbeat";
 
                     send(address, payload);
@@ -73,7 +75,7 @@ public class KintMainNode extends ApplicationNode
 
         JSONObject json = new JSONObject();
         json.putAll(Map.of("checksum", checksum, "message", message));
-        for (DrasylAddress address : addressSet) {
+        for (DrasylAddress address : _addressSet) {
             send(address, json.toJSONString());
         }
     }
@@ -95,7 +97,7 @@ public class KintMainNode extends ApplicationNode
 
 
             if (message.equals("registernode")) {
-                addressSet.add(msgEvent.getSender());
+                _addressSet.add(msgEvent.getSender());
                 System.out.println(msgEvent.getSender().toString());
                 send(msgEvent.getSender(), "NodeRegistered");
             }
@@ -111,7 +113,7 @@ public class KintMainNode extends ApplicationNode
 
             else if (message.equals("NodeShutdown"))
             {
-                addressSet.remove(msgEvent.getSender());
+                _addressSet.remove(msgEvent.getSender());
 
             }
         }
