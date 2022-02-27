@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="9f2ae" class="javax.swing.JButton" binding="addInHashMapButton" custom-create="true" default-binding="true">
+      <component id="9f2ae" class="javax.swing.JButton" binding="addInHashMapButton" default-binding="true">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -16,7 +16,7 @@
           <text value="add in HashMap "/>
         </properties>
       </component>
-      <component id="88034" class="javax.swing.JButton" binding="turnOfButton" custom-create="true" default-binding="true">
+      <component id="88034" class="javax.swing.JButton" binding="turnOfButton" default-binding="true">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
