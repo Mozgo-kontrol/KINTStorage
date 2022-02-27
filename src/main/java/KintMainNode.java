@@ -19,8 +19,6 @@ public class KintMainNode extends ApplicationNode
 
     private boolean _online = false;
 
-
-
     //Address allen Knoten im Netz
     private Set<DrasylAddress> _addressSet = new HashSet<>();
 
@@ -75,7 +73,10 @@ public class KintMainNode extends ApplicationNode
                 StandardCharsets.UTF_8));
 
         JSONObject json = new JSONObject();
+
         json.putAll(Map.of("checksum", checksum, "message", message));
+
+
         for (DrasylAddress address : _addressSet) {
 
             send(address, json.toJSONString());

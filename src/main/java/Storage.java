@@ -9,6 +9,7 @@ public class Storage
     {
         this._storage = Utility.loadHashmapFromFile();
     }
+
     public HashMap<Integer, String> getStorage(){
         return _storage;
     }
