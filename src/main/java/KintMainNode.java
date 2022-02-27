@@ -39,7 +39,8 @@ public class KintMainNode extends ApplicationNode
         sendHeartbeat(5000);
     }
 
-    @Override public void turnOff()
+    @Override
+    public void turnOff()
     {
         for (DrasylAddress address : _addressSet) {
             send(address, "SuperShutdown");
@@ -76,11 +77,10 @@ public class KintMainNode extends ApplicationNode
         JSONObject json = new JSONObject();
         json.putAll(Map.of("checksum", checksum, "message", message));
         for (DrasylAddress address : _addressSet) {
+
             send(address, json.toJSONString());
         }
     }
-
-
 
 
     @Override public void onEvent(Event event)
@@ -92,11 +92,11 @@ public class KintMainNode extends ApplicationNode
         if (event instanceof MessageEvent) {
 
             MessageEvent msgEvent = (MessageEvent) event;
-
             String message = msgEvent.getPayload().toString();
 
 
             if (message.equals("registernode")) {
+
                 _addressSet.add(msgEvent.getSender());
                 System.out.println(msgEvent.getSender().toString());
                 send(msgEvent.getSender(), "NodeRegistered");

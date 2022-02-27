@@ -20,7 +20,7 @@ public class KintSecondaryNode extends ApplicationNode
 
     private boolean _online;
 
-    private String _superNode;
+    private final String _superNode;
 
     public KintSecondaryNode(DrasylConfig config, String superNode) throws DrasylException {
         super(config);
@@ -59,6 +59,7 @@ public class KintSecondaryNode extends ApplicationNode
             case ("registerpeer"): {
                 return;
             }
+
             case ("Heartbeat"): {
 
                 send(e.getSender(), "HeartbeatRecieved");
