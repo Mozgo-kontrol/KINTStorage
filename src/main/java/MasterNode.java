@@ -6,11 +6,15 @@ import org.drasyl.node.event.Event;
 import org.drasyl.node.event.MessageEvent;
 import org.drasyl.node.event.NodeOnlineEvent;
 
+import java.util.HashMap;
+
 //import org.json.simple.JSONObject;
 
 public class MasterNode extends DrasylNode {
 
     private boolean online = false;
+
+    private HashMap<Integer, String> _storage = new HashMap<>();
 
     public MasterNode() throws DrasylException {
         super();
@@ -34,37 +38,39 @@ public class MasterNode extends DrasylNode {
             switch (messagePayload.getRequest())
             {
             case GET:
-                read();
+              //  read();
                 break;
             case  UPDATE:
-                update();
+             //   update();
                 break;
             case POST:
-                create();
+             //   create();
                 break;
             case REMOVE:
-                delete();
+             //   delete();
                 break;
             default:
                 break;
             }
         }
     }
-    private void read() {
+
+
+    private String read(int key)  {
+
+        return "";
+    }
+
+    private void update(int key, String value) {
 
     }
 
-    private void update() {
+    private void create(int key, String value) {
 
     }
 
-    private void create() {
+    private void delete(int key) {
 
     }
-
-    private void delete() {
-
-    }
-
 
 }
