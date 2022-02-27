@@ -19,12 +19,12 @@ public class KintApplication
 
             switch (args[0])
             {
-            case("main"):
+            case(Common.MAIN):
             {
                 createMainNode(config);
                 return;
             }
-            case("secondary"):
+            case(Common.SECONDARY):
             {
                 try
                 {
