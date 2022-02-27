@@ -8,16 +8,14 @@ public class MessageRequest
     private final Request messageRequest;  //GET, POST, PATCH, REMOVE
     private final Array metadata;
     private final Message content;
-    private final DrasylAddress fromClient;
 
 
     public MessageRequest(Request messageRequest, Array metadata,
-                          Message content, DrasylAddress fromClient)
+                          Message content)
     {
         this.messageRequest = messageRequest;
         this.metadata = metadata;
         this.content = content;
-        this.fromClient = fromClient;
 
     }
 
@@ -32,9 +30,4 @@ public class MessageRequest
     public Array getMetadata() {
         return metadata;
     }
-
-    public DrasylAddress fromClient() {
-        return fromClient;
-    }
-
 }
