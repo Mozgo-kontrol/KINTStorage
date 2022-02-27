@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class KintSecondaryNode extends ApplicationNode
 {
 
-    private Storage _localeStorage = new Storage();
+    private final Storage _localeStorage = new Storage();
 
     private HashMap<Integer, String> _storage = _localeStorage.getStorage();
 
@@ -62,6 +62,7 @@ public class KintSecondaryNode extends ApplicationNode
             case ("Heartbeat"): {
 
                 send(e.getSender(), "HeartbeatRecieved");
+
                 System.out.println("Heartbeat gesendet von: " + e.getSender());
                 return;
             }

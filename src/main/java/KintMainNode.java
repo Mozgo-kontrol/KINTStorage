@@ -14,7 +14,7 @@ import java.util.*;
 public class KintMainNode extends ApplicationNode
 {
 
-    private Storage _localeStorage = new Storage();
+    private final Storage _localeStorage = new Storage();
     private HashMap<Integer, String> _storage = _localeStorage.getStorage();
 
     private boolean _online = false;
