@@ -19,7 +19,7 @@ public class Storage
         if (_storage.containsKey(key)){
             return _storage.get(key);
         }
-        return "false";
+        return Common.FAULT;
     }
 
     public Integer getSize(){
