@@ -3,12 +3,13 @@ import java.lang.reflect.Array;
 
 public class MessageRequest
 {
-    private final String messageRequest;  //GET, POST, PATCH, REMOVE
+    private final Request messageRequest;  //GET, POST, PATCH, REMOVE
+
     private final Array metadata;
     private final Message content;
 
 
-    public MessageRequest(String messageRequest, Array metadata,
+    public MessageRequest(Request messageRequest, Array metadata,
                           Message content)
     {
         this.messageRequest = messageRequest;
@@ -17,7 +18,7 @@ public class MessageRequest
 
     }
 
-    public String getRequest() {
+    public Request getRequest() {
         return messageRequest;
     }
 

@@ -25,23 +25,40 @@ public class MasterNode extends DrasylNode {
         if (event instanceof NodeOnlineEvent) {
             online = true;
         }
-        if (event instanceof MessageEvent) {
 
+        if (event instanceof MessageEvent)
+        {
             Object payload = ((MessageEvent) event).getPayload();
             MessageRequest messagePayload = (MessageRequest) payload;
-            //switch (messagePayload.getRequest())
-
+            //GET, POST, PATCH, REMOVE
+            switch (messagePayload.getRequest())
+            {
+            case GET:
+                read();
+                break;
+            case  UPDATE:
+                update();
+                break;
+            case POST:
+                create();
+                break;
+            case REMOVE:
+                delete();
+                break;
+            default:
+                break;
+            }
         }
     }
     private void read() {
 
     }
 
-    private void write() {
+    private void update() {
 
     }
 
-    private void update() {
+    private void create() {
 
     }
 
