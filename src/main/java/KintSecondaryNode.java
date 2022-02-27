@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 public class KintSecondaryNode extends ApplicationNode
 {
     private boolean _online;
+
     private String _superNode;
 
     public KintSecondaryNode(DrasylConfig config, String superNode) throws DrasylException {
@@ -18,15 +19,10 @@ public class KintSecondaryNode extends ApplicationNode
         _superNode = superNode;
     }
 
-    public KintSecondaryNode(String superNode) throws DrasylException {
-        super();
-        _superNode = superNode;
-    }
     @Override public void turnOff()
     {
 
     }
-
 
     @Override public void onEvent(Event event)
     {
@@ -41,11 +37,11 @@ public class KintSecondaryNode extends ApplicationNode
         }
 
         else if (event instanceof MessageEvent) {
+
             MessageEvent e = (MessageEvent) event;
             String payload = e.getPayload().toString();
 
             switch (payload) {
-
             case ("registerpeer"): {
                 return;
             }
@@ -55,9 +51,11 @@ public class KintSecondaryNode extends ApplicationNode
                 System.out.println("Heartbeat gesendet von: " + e.getSender());
                 return;
             }
+
             case ("NodeRegistered"): {
                 return;
             }
+
             case ("SuperShutdown"):
             {
                 System.out.println("Super node gone offline");

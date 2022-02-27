@@ -11,11 +11,12 @@ public class KintApplication
 
     public static void main(String[] args)
     {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> node.turnOff()));
+       // Runtime.getRuntime().addShutdownHook(new Thread(() -> node.turnOff()));
 
         if (args.length > 1)
         {
             DrasylConfig config = DrasylConfig.newBuilder().identityPath(Path.of(args[1])).build();
+
             switch (args[0])
             {
             case("main"):

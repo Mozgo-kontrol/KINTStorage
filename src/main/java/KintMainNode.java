@@ -16,8 +16,11 @@ public class KintMainNode extends ApplicationNode
 
     private boolean online = false;
 
+
     //Address allen Knoten im Netz
     private Set<DrasylAddress> addressSet = new HashSet<>();
+
+
 
     private Timer timer;
 
@@ -49,7 +52,9 @@ public class KintMainNode extends ApplicationNode
             public void run() {
                 for (DrasylAddress address : addressSet) {
                     String payload = "Heartbeat";
+
                     send(address, payload);
+
                     System.out.println("Gesendet an: " + address + " Payload: " + payload);
                 }
             }
@@ -63,7 +68,6 @@ public class KintMainNode extends ApplicationNode
 
         JSONObject json = new JSONObject();
         json.putAll(Map.of("checksum", checksum, "message", message));
-
         for (DrasylAddress address : addressSet) {
             send(address, json.toJSONString());
         }
@@ -81,16 +85,16 @@ public class KintMainNode extends ApplicationNode
         if (event instanceof MessageEvent) {
 
             MessageEvent msgEvent = (MessageEvent) event;
+
             String message = msgEvent.getPayload().toString();
 
 
             if (message.equals("registernode")) {
-
                 addressSet.add(msgEvent.getSender());
                 System.out.println(msgEvent.getSender().toString());
                 send(msgEvent.getSender(), "NodeRegistered");
-
             }
+
 
             else if (message.equals("Heartbeat")) {
                 DrasylAddress sender = msgEvent.getSender();
@@ -99,9 +103,9 @@ public class KintMainNode extends ApplicationNode
                 System.out.println(msgEvent.getSender());
 
             }
+
             else if (message.equals("NodeShutdown"))
             {
-
                 addressSet.remove(msgEvent.getSender());
 
             }
