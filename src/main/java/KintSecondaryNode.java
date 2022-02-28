@@ -48,6 +48,7 @@ public class KintSecondaryNode extends ApplicationNode
         else if (event instanceof NodeDownEvent)
         {
             System.exit(0);
+            turnOff();
         }
 
         else if (event instanceof MessageEvent) {

@@ -13,13 +13,16 @@ import java.util.*;
 
 public class KintMainNode extends ApplicationNode
 {
+    private boolean _online = false;
 
     private final Storage _localeStorage = new Storage();
     private HashMap<Integer, String> _storage = _localeStorage.getStorage();
 
-    private boolean _online = false;
+
 
     //Address allen Knoten im Netz
+    //private HashMap <Integer, String> _addressSet = new HashMap<>();
+
     private Set<DrasylAddress> _addressSet = new HashSet<>();
 
 
@@ -81,6 +84,53 @@ public class KintMainNode extends ApplicationNode
 
             send(address, json.toJSONString());
         }
+    }
+
+    public void create(Integer key, String value){
+
+        //TODO pruefen ob key integer ist
+        int keyOfSaveNode = calculateHashSum(key);
+
+        if(keyOfSaveNode==0){
+            createInLocalStorage();
+        }
+        else {
+            createRemoteLocalStorage(keyOfSaveNode, value);
+        }
+
+    }
+
+    private String createInLocalStorage(){
+        //TODO create implementieren
+        return "";
+    }
+
+    private String createRemoteLocalStorage(int receiverAddress, String value){
+
+        //TODO erstellen request number aus Task
+        RequestNumber requestNumber = new RequestNumber(10);
+
+        MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,  value);
+
+       // long checksum = Utility.getCRC32Checksum(value.getBytes(
+       //         StandardCharsets.UTF_8));
+
+        JSONObject json = new JSONObject();
+
+
+        //json.putAll(Map.of("checksum", checksum, "message",  messageRequest));
+
+        //TODO create implementieren
+
+        return "";
+    }
+
+
+
+
+
+    private Integer calculateHashSum(int key){
+        return key % Common.SUMOFNODE-1;  //hash funktion
     }
 
 

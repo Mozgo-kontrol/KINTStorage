@@ -7,12 +7,13 @@ public class MessageRequest
 {
     private final Request messageRequest;  //GET, POST, PATCH, REMOVE
     private final RequestNumber metadata;
-    private final Message content;
+   // private final Message content;
+   private final String content;
     private static final String limiter = ";";
 
 
     public MessageRequest(Request messageRequest, RequestNumber metadata,
-                          Message content)
+                          String content)
     {
         this.messageRequest = messageRequest;
         this.metadata = metadata;
@@ -23,7 +24,7 @@ public class MessageRequest
         return messageRequest;
     }
 
-    public Message getContent() {
+    public String getContent() {
         return content;
     }
 
@@ -39,8 +40,8 @@ public class MessageRequest
         //wenn ja:
         Request createdMessageRequest = Request.GET; //nicht nur get, was auch immer split rausgibt
         RequestNumber createdRequestNumber = new RequestNumber(36); //nicht 36, was auch immer split ausgibt
-        Message createdContent = new Message(1, "",""); //was auch immer split ausgibt
-        return new MessageRequest(createdMessageRequest, createdRequestNumber, createdContent);//
+       // Message createdContent = new Message(1, "",""); //was auch immer split ausgibt
+        return new MessageRequest(createdMessageRequest, createdRequestNumber,"");//
     }
 
     @Override
