@@ -63,6 +63,8 @@ public class KintApplication
             e.printStackTrace();
         }
        //GUI started
+        //
+        KintMainNodeGUIController guiController = new KintMainNodeGUIController((KintMainNode) node);
     }
 
     public static void createSecondaryNode(DrasylConfig config, String superAddress)
