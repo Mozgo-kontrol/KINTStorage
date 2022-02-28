@@ -1,12 +1,10 @@
+
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-@Getter
 @Setter
+@Getter
 public class KintGUI
 {
     private JButton Read;
@@ -19,6 +17,7 @@ public class KintGUI
     private JButton HeartBeatOnButton;
     private JButton HeartBeatOffButton;
     private JCheckBox CheckBox;
+
     private JPanel mainGUI;
     private KintMainNode kintMainNode;
 
@@ -34,7 +33,7 @@ public class KintGUI
         });
 
         Write.addActionListener(e -> {
-
+                 kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
         });
 
         Update.addActionListener(e -> {
@@ -45,17 +44,6 @@ public class KintGUI
 
         });
 
-        Key.addActionListener(e -> {
-
-        });
-
-        Value.addActionListener(e -> {
-
-        });
-
-        AntwortText.addActionListener(e -> {
-
-        });
 
         HeartBeatOffButton.addActionListener(e -> {
 
