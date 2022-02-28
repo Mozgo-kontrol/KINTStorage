@@ -1,5 +1,6 @@
+//all new
 public class RequestNumber {
-    private int requestNumber;
+    private final int requestNumber;
 
     RequestNumber(int i) {
         requestNumber = i;
