@@ -78,7 +78,7 @@ public class KintMainNode extends ApplicationNode
 
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
-                    if(entry.getKey()!=null){
+                    if(entry.getKey()!=0){
                         String payload = "Heartbeat";
                         send(entry.getValue(), payload).exceptionally(e -> {
                             throw new RuntimeException(
