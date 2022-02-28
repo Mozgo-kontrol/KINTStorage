@@ -12,9 +12,15 @@ public class KintGUI
     private JButton Delete;
     private JButton Write;
     private JButton Update;
-    private JButton HeartBeat;
+    private JButton HeartBeatOnButton;
+    private JButton HeartBeatOffButton;
+    private JCheckBox node1CheckBox;
+    private JCheckBox node2CheckBox;
+    private JCheckBox node3CheckBox;
 
-    public KintGUI(JButton heartBeat){
+    public KintGUI(JCheckBox node1CheckBox, JCheckBox node3CheckBox, JCheckBox node2CheckBox, JCheckBox node2CheckBox1){
+        this.node2CheckBox = node2CheckBox1;
+
 
         Delete.addActionListener(new ActionListener() {
             @Override
@@ -45,7 +51,7 @@ public class KintGUI
             }
         });
 
-        HeartBeat.addActionListener(new ActionListener() {
+        HeartBeatOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -73,6 +79,15 @@ public class KintGUI
             }
         });
 
+        HeartBeatOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
+
     }
 
-}
+   }
