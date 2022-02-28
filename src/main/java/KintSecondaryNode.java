@@ -56,51 +56,38 @@ public class KintSecondaryNode extends ApplicationNode
             String payload = e.getPayload().toString();
 
             switch (payload) {
-            case ("registerpeer"): {
-                return;
-            }
-
-            case ("Heartbeat"): {
-
-                send(e.getSender(), "HeartbeatRecieved");
-
-                System.out.println("Heartbeat gesendet von: " + e.getSender());
-                return;
-            }
-
-            case ("NodeRegistered"): {
-                return;
-            }
-
-            case ("SuperShutdown"):
-            {
-                System.out.println("Super node gone offline");
-                shutdown();
-                return;
-            }
-
-            default: {
-                JSONObject j = Utility.parseJSON(payload);
-                if (j == null)
-                {
-                    return;
+                case ("registerpeer") -> {
                 }
-                long checksum = (long) j.get("checksum");
-                String message = (String) j.get("message");
+                case ("Heartbeat") -> {
 
-                long newChecksum = Utility.getCRC32Checksum(message.getBytes(
-                        StandardCharsets.UTF_8));
-                if (checksum != newChecksum)
-                {
-                    send(_superNode, "ChecksumFailure");
-                }
-                else
-                {
-                    send(_superNode, "Success");
-                    System.out.println(message);
-                }
+                    send(e.getSender(), "HeartbeatReceived");
 
-            }
+                    System.out.println("Heartbeat gesendet von: " + e.getSender());
+                }
+                case ("NodeRegistered") -> {
+                }
+                case ("SuperShutdown") -> {
+                    System.out.println("Super node gone offline");
+                    shutdown();
+                }
+                default -> {
+                    JSONObject j = Utility.parseJSON(payload);//MessageRequest.fromString(payload)
+                    if (j == null) {
+                        return;
+                    }
+                    long checksum = (long) j.get("checksum");
+                    String message = (String) j.get("message");
+
+                    long newChecksum = Utility.getCRC32Checksum(message.getBytes(
+                            StandardCharsets.UTF_8));
+                    if (checksum != newChecksum) {
+                        send(_superNode, "ChecksumFailure");
+                    } else {
+                        send(_superNode, "Success");
+                        System.out.println(message);
+                    }
+
+                }
             }
 
         }
