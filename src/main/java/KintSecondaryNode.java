@@ -1,3 +1,4 @@
+import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
 import org.drasyl.node.event.Event;
@@ -8,13 +9,20 @@ import org.json.simple.JSONObject;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KintSecondaryNode extends ApplicationNode
 {
 
     private Storage _localeStorage = new Storage();
+    private Timer timer;
+
 
     private boolean _online = false;
+
+    private boolean _isRegisteredBeiSuperNode = false;
 
     private final String _superNode;
 
@@ -38,14 +46,9 @@ public class KintSecondaryNode extends ApplicationNode
     {
         System.out.println("Event received: " + event);
         if (event instanceof NodeOnlineEvent) {
+            System.out.println("register bei superNode");
             _online = true;
-
-            send(_superNode, "registernode").exceptionally(e -> {
-                throw new RuntimeException(
-                        "Unable to process message.", e);
-
-            });
-            System.out.println("registernode");
+            registerBeiSuper(3000L);
         }
 
         else if (event instanceof NodeDownEvent)
@@ -56,7 +59,6 @@ public class KintSecondaryNode extends ApplicationNode
 
         else if (event instanceof MessageEvent) {
 
-
             MessageEvent e = (MessageEvent) event;
             String payload = e.getPayload().toString();
 
@@ -65,14 +67,16 @@ public class KintSecondaryNode extends ApplicationNode
 
                 }
 
-                case ("Heartbeat") -> {
+                case (Common.HEARTBEAT) -> {
 
                     send(e.getSender(), "HeartbeatReceived");
 
                     System.out.println("Heartbeat gesendet von: " + e.getSender());
                 }
 
-                case ("NodeRegistered") -> {
+                case (Common.NODEREGISTERED) -> {
+                    _isRegisteredBeiSuperNode = true;
+
                     System.out.println("Node registered");
                 }
 
@@ -88,18 +92,6 @@ public class KintSecondaryNode extends ApplicationNode
 
                     assert j != null;
                     MessageRequest message = (MessageRequest) j.get("message");
-
-
-                  /*  long newChecksum = Utility.getCRC32Checksum(message.getContent().getBytes(
-                          StandardCharsets.UTF_8));
-
-                    if (checksum != newChecksum) {
-                        send(_superNode, "ChecksumFailure");
-                    } else {
-                       send(_superNode, "Success");
-                    System.out.println(message);
-                   }*/
-
                         //GET, POST, UPDATE, REMOVE
                     String result;
 
@@ -144,6 +136,26 @@ public class KintSecondaryNode extends ApplicationNode
                 }
             }
 
+    }
+    public void registerBeiSuper(long intervall) {
+        System.out.println("Register bei Super Start");
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Register bei Super Send");
+                send(_superNode, Common.REGISTERNODE).exceptionally(e -> {
+                    throw new RuntimeException(
+                            "Unable to process message.", e);
+                });
+
+                if(_isRegisteredBeiSuperNode){
+                    timer.cancel();
+                    System.out.println("Node ist registered bei Super");
+                    System.out.println("Timer cancel");
+                }
+            }
+        }, 0, intervall);
     }
 
 

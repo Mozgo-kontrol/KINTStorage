@@ -27,19 +27,19 @@ public class KintGUI
 
         });
 
+        //AntwortText.setText(kintMainNode.getResponse()+"");
 
         Read.addActionListener(e -> {
-
+           // AntwortText.setText(kintMainNode);
         });
 
         Write.addActionListener(e -> {
-                 kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
+               AntwortText.setText(kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText()));
         });
 
         Update.addActionListener(e -> {
 
         });
-
         HeartBeatOnButton.addActionListener(e -> {
 
         });
