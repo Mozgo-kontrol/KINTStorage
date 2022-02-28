@@ -78,14 +78,18 @@ public class KintMainNode extends ApplicationNode
 
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
-                    String payload = "Heartbeat";
-                    send(entry.getValue(), payload).exceptionally(e -> {
-                        throw new RuntimeException(
-                                "Unable to process message.", e);
-                    });
-                    // do what you have to do here
-                    // In your case, another loop.
-                    System.out.println("Gesendet an: " + entry.getValue() + " Payload: " + payload);
+                    if(entry.getKey()==0){
+                        continue;
+                    }
+                        String payload = "Heartbeat";
+                        send(entry.getValue(), payload).exceptionally(e -> {
+                            throw new RuntimeException(
+                                    "Unable to process message.", e);
+                        });
+                        // do what you have to do here
+                        // In your case, another loop.
+                        System.out.println("Gesendet an: " + entry.getValue() + " Payload: " + payload);
+
                 }
 
             }
