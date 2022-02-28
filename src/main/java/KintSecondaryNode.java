@@ -14,7 +14,7 @@ public class KintSecondaryNode extends ApplicationNode
 
     private Storage _localeStorage = new Storage();
 
-    private boolean _online;
+    private boolean _online = false;
 
     private final String _superNode;
 
@@ -36,9 +36,16 @@ public class KintSecondaryNode extends ApplicationNode
 
     @Override public void onEvent(Event event)
     {
+        System.out.println("Event received: " + event);
         if (event instanceof NodeOnlineEvent) {
             _online = true;
-            send(_superNode, "registernode");
+
+            send(_superNode, "registernode").exceptionally(e -> {
+                throw new RuntimeException(
+                        "Unable to process message.", e);
+
+            });
+            System.out.println("registernode");
         }
 
         else if (event instanceof NodeDownEvent)
@@ -49,22 +56,26 @@ public class KintSecondaryNode extends ApplicationNode
 
         else if (event instanceof MessageEvent) {
 
+
             MessageEvent e = (MessageEvent) event;
             String payload = e.getPayload().toString();
 
-
-
             switch (payload) {
                 case ("registerpeer") -> {
+
                 }
+
                 case ("Heartbeat") -> {
 
                     send(e.getSender(), "HeartbeatReceived");
 
                     System.out.println("Heartbeat gesendet von: " + e.getSender());
                 }
+
                 case ("NodeRegistered") -> {
+                    System.out.println("Node registered");
                 }
+
                 case ("SuperShutdown") -> {
                     System.out.println("Super node gone offline");
                     shutdown();

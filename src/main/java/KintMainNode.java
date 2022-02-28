@@ -78,9 +78,7 @@ public class KintMainNode extends ApplicationNode
 
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
-                    if(entry.getKey()==0){
-                        continue;
-                    }
+                    if(entry.getKey()!=null){
                         String payload = "Heartbeat";
                         send(entry.getValue(), payload).exceptionally(e -> {
                             throw new RuntimeException(
@@ -89,7 +87,7 @@ public class KintMainNode extends ApplicationNode
                         // do what you have to do here
                         // In your case, another loop.
                         System.out.println("Gesendet an: " + entry.getValue() + " Payload: " + payload);
-
+                    }
                 }
 
             }
@@ -200,22 +198,12 @@ public class KintMainNode extends ApplicationNode
                 System.out.println("Response bekam: " + message);
             }
 
-
-
-
-
             if (message.equals("registernode")) {
 
+                _addressHashMap.put(getAddressHashMapSize(), msgEvent.getSender());
 
-
-
-            }
-
-
-            if (message.equals("registernode")) {
-
-                _addressHashMap.put(getAddressHashMapSize() , msgEvent.getSender());
                 System.out.println(msgEvent.getSender().toString());
+
                 send(msgEvent.getSender(), "NodeRegistered");
             }
 
