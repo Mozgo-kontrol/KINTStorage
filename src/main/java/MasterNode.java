@@ -7,21 +7,24 @@ import org.drasyl.node.event.MessageEvent;
 import org.drasyl.node.event.NodeOnlineEvent;
 
 import java.util.HashMap;
+import java.util.Set;
 
 //import org.json.simple.JSONObject;
 
 public class MasterNode extends DrasylNode {
 
     private boolean online = false;
-
     private HashMap<Integer, String> _storage = new HashMap<>();
+    private Tasks requestTasks;
 
     public MasterNode() throws DrasylException {
         super();
+        requestTasks = new Tasks();
     }
 
     public MasterNode(DrasylConfig config) throws DrasylConfigException, DrasylException {
         super(config);
+        requestTasks = new Tasks();
     }
 
     @Override
