@@ -7,21 +7,26 @@ import org.drasyl.node.event.MessageEvent;
 import org.drasyl.node.event.NodeOnlineEvent;
 
 import java.util.HashMap;
+import java.util.Set;
 
 //import org.json.simple.JSONObject;
 
 public class MasterNode extends DrasylNode {
 
     private boolean online = false;
-
     private HashMap<Integer, String> _storage = new HashMap<>();
+
+    private Tasks requestTasks = new Tasks();
+
 
     public MasterNode() throws DrasylException {
         super();
+        requestTasks = new Tasks();
     }
 
     public MasterNode(DrasylConfig config) throws DrasylConfigException, DrasylException {
         super(config);
+        requestTasks = new Tasks();
     }
 
     @Override
@@ -55,7 +60,24 @@ public class MasterNode extends DrasylNode {
         }
     }
 
-    //Returns the value to which argument key is mapped in _storage, or null
+
+      public void create(Integer key, String value){
+
+
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+  /*  //Returns the value to which argument key is mapped in _storage, or null
     //if _storage contains no mapping for argument key
     private String read(int key)  {
         return _storage.get(key);
@@ -76,6 +98,6 @@ public class MasterNode extends DrasylNode {
     //Removes the mapping for argument key from _storage, if mapping exists.
     private void delete(int key) {
         _storage.remove(key);
-    }
+    }*/
 
 }
