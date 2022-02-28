@@ -1,8 +1,12 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+@Getter
+@Setter
 public class KintGUI
 {
     private JButton Read;
@@ -15,10 +19,10 @@ public class KintGUI
     private JButton HeartBeatOnButton;
     private JButton HeartBeatOffButton;
     private JCheckBox CheckBox;
+    private JPanel mainGUI;
+    private KintMainNode kintMainNode;
 
-    public KintGUI(JCheckBox node1CheckBox, JCheckBox node3CheckBox, JCheckBox CheckBox){
-        this.CheckBox = CheckBox;
-
+    public KintGUI(){
 
         Delete.addActionListener(new ActionListener() {
             @Override
@@ -83,9 +87,5 @@ public class KintGUI
 
             }
         });
-
-
-
     }
-
    }
