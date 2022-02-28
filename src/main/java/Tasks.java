@@ -3,11 +3,11 @@ import java.util.Set;
 
 public class Tasks {
     private Set<RequestNumber> _taskSet;
-    private int lastRequestNumber;
+    private int _lastRequestNumber;
 
     public Tasks() {
         _taskSet = new HashSet<>();
-        lastRequestNumber = 0;
+        _lastRequestNumber = 0;
     }
 
     public Set<RequestNumber> getTaskSet() {
@@ -15,15 +15,26 @@ public class Tasks {
     }
 
     public int getLastRequestNumber() {
-        return lastRequestNumber;
+        return _lastRequestNumber;
     }
 
     public void setLastRequestNumber(int lastRequestNumber) {
-        this.lastRequestNumber = lastRequestNumber;
+        this._lastRequestNumber = lastRequestNumber;
     }
 
-    public void addRequestNumber(int a){
-        RequestNumber newRequestNumber = new RequestNumber(a);
+    public void addRequestNumber(RequestNumber newRequestNumber){
         _taskSet.add(newRequestNumber);
+        _lastRequestNumber++;
     }
+
+    public void removeRequestNumber(RequestNumber oldRequestNumber){
+        //TODO remove oldRequestNumber from Set
+    }
+
+  /*  public void addRequestNumber(){
+        RequestNumber newRequestNumber = new RequestNumber(_lastRequestNumber+1);
+        _taskSet.add(newRequestNumber);
+        _lastRequestNumber++;
+    }*/
+
 }

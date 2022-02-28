@@ -12,11 +12,7 @@ import java.util.HashMap;
 public class KintSecondaryNode extends ApplicationNode
 {
 
-    private final Storage _localeStorage = new Storage();
-
-    private HashMap<Integer, String> _storage = _localeStorage.getStorage();
-
-
+    private Storage _localeStorage = new Storage();
 
     private boolean _online;
 
@@ -56,6 +52,8 @@ public class KintSecondaryNode extends ApplicationNode
             MessageEvent e = (MessageEvent) event;
             String payload = e.getPayload().toString();
 
+
+
             switch (payload) {
                 case ("registerpeer") -> {
                 }
@@ -71,27 +69,71 @@ public class KintSecondaryNode extends ApplicationNode
                     System.out.println("Super node gone offline");
                     shutdown();
                 }
-                default -> {
-                    JSONObject j = Utility.parseJSON(payload);//MessageRequest.fromString(payload)
-                    if (j == null) {
-                        return;
-                    }
-                    long checksum = (long) j.get("checksum");
-                    String message = (String) j.get("message");
 
-                    long newChecksum = Utility.getCRC32Checksum(message.getBytes(
+                default -> {
+                    JSONObject j = Utility.parseJSON(payload);
+
+                   // long checksum = (long) j.get("checksum");
+
+                    assert j != null;
+                    MessageRequest message = (MessageRequest) j.get("message");
+
+
+                  /*  long newChecksum = Utility.getCRC32Checksum(message.getContent().getBytes(
+                          StandardCharsets.UTF_8));
+
+                    if (checksum != newChecksum) {
+                        send(_superNode, "ChecksumFailure");
+                    } else {
+                       send(_superNode, "Success");
+                    System.out.println(message);
+                   }*/
+
+                        //GET, POST, UPDATE, REMOVE
+                    String result;
+
+                        switch (message.getRequest())
+                        {
+                        case GET:
+                            //   update();
+                            break;
+                        case  UPDATE:
+                            //   update();
+                            break;
+                        case POST:
+
+                             result = _localeStorage.create(
+                                      message.getContentKey(),
+                                      message.getContent());
+
+                            System.out.println("Post request von:"+ e.getSender()+"result:" + result);
+
+                            MessageEvent messageEvent = MessageResponseEvent.of(identity.getAddress(), result);
+                            send(e.getSender(), messageEvent);
+
+                            break;
+                        case REMOVE:
+                            //   delete();
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+
+
+                   /* long newChecksum = Utility.getCRC32Checksum(message.getBytes(
                             StandardCharsets.UTF_8));
                     if (checksum != newChecksum) {
                         send(_superNode, "ChecksumFailure");
                     } else {
                         send(_superNode, "Success");
                         System.out.println(message);
-                    }
+                    }*/
 
                 }
             }
 
-        }
-
     }
+
+
 }
