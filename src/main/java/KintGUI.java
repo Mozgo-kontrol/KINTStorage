@@ -24,68 +24,41 @@ public class KintGUI
 
     public KintGUI(){
 
-        Delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Delete.addActionListener(e -> {
 
-            }
         });
 
 
-        Read.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Read.addActionListener(e -> {
 
-            }
         });
 
-        Write.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Write.addActionListener(e -> {
 
-            }
         });
 
-        Update.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Update.addActionListener(e -> {
 
-            }
         });
 
-        HeartBeatOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        HeartBeatOnButton.addActionListener(e -> {
 
-            }
         });
 
-        Key.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Key.addActionListener(e -> {
 
-            }
         });
 
-        Value.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Value.addActionListener(e -> {
 
-            }
         });
 
-        AntwortText.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        AntwortText.addActionListener(e -> {
 
-            }
         });
 
-        HeartBeatOffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        HeartBeatOffButton.addActionListener(e -> {
 
-            }
         });
     }
    }
