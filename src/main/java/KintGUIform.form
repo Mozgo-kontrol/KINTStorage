@@ -3,7 +3,7 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="11" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="385" height="414"/>
+      <xy x="20" y="20" width="385" height="434"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -143,15 +143,6 @@
           <toolTipText value="Enter Key to delete Key &amp; Value"/>
         </properties>
       </component>
-      <component id="5b819" class="javax.swing.JButton" binding="Read">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Read"/>
-          <toolTipText value="Enter Key to get Value"/>
-        </properties>
-      </component>
       <vspacer id="fd208">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="6" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
@@ -265,29 +256,25 @@
           <text value="HeartBeat Off"/>
         </properties>
       </component>
-      <component id="75c70" class="javax.swing.JCheckBox" binding="node1CheckBox" default-binding="true">
+      <vspacer id="e432f">
         <constraints>
-          <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="0" row-span="1" col-span="8" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="5" height="5"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <component id="5b819" class="javax.swing.JButton" binding="Read">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <enabled value="false"/>
-          <selected value="false"/>
-          <text value="Node1"/>
+          <text value="Read"/>
+          <toolTipText value="Enter Key to get Value"/>
         </properties>
       </component>
-      <component id="9d9fd" class="javax.swing.JCheckBox" binding="node3CheckBox" default-binding="true">
+      <component id="5b46b" class="javax.swing.JCheckBox" binding="CheckBox">
         <constraints>
-          <grid row="10" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <enabled value="false"/>
-          <horizontalAlignment value="4"/>
-          <text value="Node3"/>
-        </properties>
-      </component>
-      <component id="5b46b" class="javax.swing.JCheckBox" binding="node2CheckBox" default-binding="true">
-        <constraints>
-          <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="false"/>

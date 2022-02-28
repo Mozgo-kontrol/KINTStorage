@@ -14,12 +14,10 @@ public class KintGUI
     private JButton Update;
     private JButton HeartBeatOnButton;
     private JButton HeartBeatOffButton;
-    private JCheckBox node1CheckBox;
-    private JCheckBox node2CheckBox;
-    private JCheckBox node3CheckBox;
+    private JCheckBox CheckBox;
 
-    public KintGUI(JCheckBox node1CheckBox, JCheckBox node3CheckBox, JCheckBox node2CheckBox, JCheckBox node2CheckBox1){
-        this.node2CheckBox = node2CheckBox1;
+    public KintGUI(JCheckBox node1CheckBox, JCheckBox node3CheckBox, JCheckBox CheckBox){
+        this.CheckBox = CheckBox;
 
 
         Delete.addActionListener(new ActionListener() {
