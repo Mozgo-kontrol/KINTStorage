@@ -29,7 +29,14 @@ public class KintGUI
     public KintGUI(){
 
         Delete.addActionListener(e -> {
-
+            try
+            {
+                kintMainNode.remove(Integer.parseInt(Key.getText()));
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
+            }
         });
 
         Read.addActionListener(e -> {

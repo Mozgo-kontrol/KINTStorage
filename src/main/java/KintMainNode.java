@@ -17,26 +17,19 @@ import java.util.*;
 
 public class KintMainNode extends ApplicationNode
 {
-    private boolean _online = false;
-
     private final Storage _localeStorage = new Storage();
-
+    private boolean _online = false;
     private String _response ="";
+    private Tasks _requestTasks = new Tasks();
+    private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
+    private Timer timer;
 
    // private HashMap<Integer, String> _storage = _localeStorage.getStorage();
-
-    private Tasks _requestTasks = new Tasks();
-
-
     //Address allen Knoten im Netz
-
-    private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
-
     //private Set<DrasylAddress> _addressSet = new HashSet<>();
 
 
 
-    private Timer timer;
 
 
     public String getResponse(){
@@ -47,9 +40,8 @@ public class KintMainNode extends ApplicationNode
     {
         super(config);
         sendHeartbeat(5000);
-
-
     }
+
     protected KintMainNode() throws DrasylException {
         super();
         sendHeartbeat(5000);
@@ -66,7 +58,6 @@ public class KintMainNode extends ApplicationNode
     @Override
     public void turnOff()
     {
-
         for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
         {
             send(entry.getValue(),"SuperShutdown").exceptionally(e -> {
@@ -137,7 +128,57 @@ public class KintMainNode extends ApplicationNode
         }
     }
 
-    public void get(Integer key){
+    public void remove(int key) throws JsonProcessingException {
+
+        int keyOfRemoveNode = calculateHashSum(key);
+        System.out.println("SpeicherOrt :" + keyOfRemoveNode );
+        String result;
+        if(keyOfRemoveNode==0){
+            System.out.println("remove in local");
+            _response = removeInLocalStorage(key);
+        }
+        else {
+            System.out.println("remove in remote");
+            _response = removeRemoteLocalStorage(keyOfRemoveNode, key);
+        }
+    }
+
+    private String removeInLocalStorage(int key){
+        return _localeStorage.delete(key);
+    }
+
+    private String removeRemoteLocalStorage(int receiverAddress, int key)
+            throws JsonProcessingException {
+
+        RequestNumber requestNumber = new RequestNumber(_requestTasks.getLastRequestNumber()+1);
+        MessageRequest messageRequest = new MessageRequest(Request.REMOVE, requestNumber,
+                key);
+        sendMessage(messageRequest, requestNumber, receiverAddress);
+        return Common.OK;
+    }
+
+    // Hilfsmethode
+    private void sendMessage(MessageRequest messageRequest, RequestNumber requestNumber, int receiverAddress)
+            throws JsonProcessingException {
+
+        String message = Utility.parseObjectToJSON(messageRequest);
+        _requestTasks.addRequestNumber(requestNumber);
+        try
+        {
+            send(_addressHashMap.get(receiverAddress), message)
+                    .exceptionally(e -> {
+                        throw new RuntimeException(
+                                "Unable to process message.", e);
+                    });
+        }
+        catch (RuntimeException e){
+            _requestTasks.removeRequestNumber(requestNumber);
+            _response = Common.UNABLETOEXECUTE;
+        }
+    }
+
+
+    public void get(int key){
 
         int keyOfGetNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfGetNode );
@@ -178,19 +219,18 @@ public class KintMainNode extends ApplicationNode
 
 
     public void create(Integer key, String value)
-            throws JsonProcessingException
-    {
+            throws JsonProcessingException {
 
         //TODO pruefen ob key integer ist
         int keyOfSaveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfSaveNode );
 
         String result;
-        if(keyOfSaveNode==0){
+        if(keyOfSaveNode==0) {
             System.out.println("create Local");
             result = createInLocalStorage(key, value);
             if(result.equals(Common.OK)){
-               result = result +" : in key : "+key+" value : "+ _localeStorage.read(key);
+               result = result +" : in key : "+key+" value : "+ value;
                 _response = result;
             }
         }
@@ -202,43 +242,21 @@ public class KintMainNode extends ApplicationNode
 
     private String createInLocalStorage(
             Integer key,
-            String value){
-        _localeStorage.create(key, value);
+            String value) {
+
         return _localeStorage.create(key, value);
     }
 
     private String createRemoteLocalStorage(
             int receiverAddress,
             Integer key,
-            String value) throws JsonProcessingException
-    {
-
-        //TODO erstellen request number aus Task
+            String value) throws JsonProcessingException {
 
         RequestNumber requestNumber = new RequestNumber(_requestTasks.getLastRequestNumber()+1);
-
         MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,
                 key, value);
-
-       String message = Utility.parseObjectToJSON(messageRequest);
-
-        _requestTasks.addRequestNumber(requestNumber);
-
-        try
-        {
-            send(_addressHashMap.get(receiverAddress), message)
-                    .exceptionally(e -> {
-                        throw new RuntimeException(
-                                "Unable to process message.", e);
-
-                    });
-        }
-
-        catch (RuntimeException e){
-            _requestTasks.removeRequestNumber(requestNumber);
-        }
-
-        return "";
+        sendMessage(messageRequest, requestNumber, receiverAddress);
+        return Common.OK;
     }
 
     private Integer calculateHashSum(int key){

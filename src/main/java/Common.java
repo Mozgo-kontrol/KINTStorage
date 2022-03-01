@@ -10,9 +10,10 @@ public class Common
     public final static String REGISTERNODE = "registernode";
     public final static String NODEREGISTERED ="NodeRegistered";
     public final static String HEARTBEAT= "Heartbeat";
-
+    public final static String HEARTBEATRECEIVED = "HeartbeatReceived";
     public final static String SUPERSHUTDOWN= "SuperShutdown";
 
     public final static String NOMAPPINGFORKEYFOUND = "No mapping for key found";
-    public final static String HEARTBEATRECEIVED = "HeartbeatReceived";
+    public final static String UNABLETOEXECUTE= "Unable to execute message";
+
 }
