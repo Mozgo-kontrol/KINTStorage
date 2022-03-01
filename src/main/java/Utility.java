@@ -11,6 +11,7 @@ import java.util.zip.Checksum;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,7 +22,7 @@ public class Utility
 
     private  static ObjectMapper _mapper = new ObjectMapper();
 
-  // Map<String,Object> map = mapper.readValue(json, MessageRequest.class);
+    //= _mapper.readValue(json, MessageRequest.class);
 
     private static final JSONParser PARSER = new JSONParser();
 
@@ -41,10 +42,16 @@ public class Utility
         return null;
     }
 
+    public static MessageRequest parseJSONToMessageRequest(String json)
+            throws JsonProcessingException
+    {
+        MessageRequest message = _mapper.readValue(json, MessageRequest.class);
+        return message;
+    }
+
     public static String parseObjectToJSON(MessageRequest messageRequest)
             throws JsonProcessingException
     {
-
         try {
             // convert user object to json string and return it
            return  _mapper.writeValueAsString(messageRequest);

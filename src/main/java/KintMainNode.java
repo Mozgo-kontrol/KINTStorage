@@ -175,18 +175,16 @@ public class KintMainNode extends ApplicationNode
       /*  long checksum = Utility.getCRC32Checksum(value.getBytes(
                StandardCharsets.UTF_8));
 */
-        JSONObject json = new JSONObject();
+       // JSONObject json = new JSONObject();
         //json.putAll(Map.of("checksum", checksum, "message",  messageRequest));
 
-        json.putAll(Map.of( "message",  Utility.parseObjectToJSON(messageRequest)));
-
-
+       String message = Utility.parseObjectToJSON(messageRequest);
 
         _requestTasks.addRequestNumber(requestNumber);
 
         try
         {
-            send(_addressHashMap.get(receiverAddress), json.toJSONString())
+            send(_addressHashMap.get(receiverAddress), message)
                     .exceptionally(e -> {
                         throw new RuntimeException(
                                 "Unable to process message.", e);

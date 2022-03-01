@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
@@ -7,6 +9,7 @@ import org.drasyl.node.event.NodeDownEvent;
 import org.drasyl.node.event.NodeOnlineEvent;
 import org.json.simple.JSONObject;
 
+import java.io.DataInput;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +45,7 @@ public class KintSecondaryNode extends ApplicationNode
 
     }
 
-    @Override public void onEvent(Event event)
+    @SneakyThrows @Override public void onEvent(Event event)
     {
         System.out.println("Event received: " + event);
         if (event instanceof NodeOnlineEvent) {
@@ -86,15 +89,17 @@ public class KintSecondaryNode extends ApplicationNode
                 }
 
                 default -> {
+
                     System.out.println(payload);
 
-                    JSONObject j = Utility.parseJSON(payload);
+                   // ObjectMapper instantiat
 
+                   // Deserialization into the `Employee` class
 
-                    assert j != null;
-                    MessageRequest message = (MessageRequest) j.get("message");
+                    MessageRequest message = Utility.parseJSONToMessageRequest(payload);
+
                         //GET, POST, UPDATE, REMOVE
-                    String result;
+                        String result;
 
                         switch (message.get_messageRequest())
                         {
