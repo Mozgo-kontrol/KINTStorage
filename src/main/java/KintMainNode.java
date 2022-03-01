@@ -129,7 +129,9 @@ public class KintMainNode extends ApplicationNode
         }
     }
 
-    public String create(Integer key, String value){
+    public String create(Integer key, String value)
+            throws JsonProcessingException
+    {
 
         //TODO pruefen ob key integer ist
         int keyOfSaveNode = calculateHashSum(key);
