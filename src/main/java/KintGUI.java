@@ -1,4 +1,5 @@
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
 import lombok.Setter;
 import javax.swing.*;
@@ -34,7 +35,14 @@ public class KintGUI
         });
 
         Write.addActionListener(e -> {
-               AntwortText.setText(kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText()));
+            try
+            {
+                AntwortText.setText(kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText()));
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
+            }
         });
 
         Update.addActionListener(e -> {
