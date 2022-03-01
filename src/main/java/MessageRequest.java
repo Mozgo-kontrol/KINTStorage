@@ -19,6 +19,14 @@ public class MessageRequest
         this._contentKey = contentKey;
         this._content = content;
     }
+
+    public MessageRequest(Request messageRequest, RequestNumber metadata, Integer contentKey)
+    {
+        this._messageRequest = messageRequest;
+        this._metadata = metadata;
+        this._contentKey = contentKey;
+        this._content = "";
+    }
     public MessageRequest(){}
 }
 
