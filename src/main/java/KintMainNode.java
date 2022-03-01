@@ -228,7 +228,7 @@ public class KintMainNode extends ApplicationNode
 
                 System.out.println("Node is registered and is in the list with key "
                         + getAddressHashMapSize()+ "and Address "
-                        + _addressHashMap.get(getAddressHashMapSize()));
+                        + _addressHashMap.get(getAddressHashMapSize() -1));
 
                 send(msgEvent.getSender(), Common.NODEREGISTERED);
             }
