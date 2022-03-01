@@ -112,7 +112,6 @@ public class KintMainNode extends ApplicationNode
         if(timer!=null){
             timer.cancel();
         }
-
     }
 
     public void sendToAllNodes(String message) {

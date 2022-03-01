@@ -38,6 +38,13 @@ public class KintGUI
 
         Write.addActionListener(e -> {
 
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    AntwortText.setText(kintMainNode.getResponse());
+                }
+            }, 0, 3000L);
+
             try
             {
                 kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
@@ -49,7 +56,8 @@ public class KintGUI
         });
 
         Update.addActionListener(e -> {
-            kintMainNode.turnOffSendHeartbeat();
+
+
         });
 
         HeartBeatOnButton.addActionListener(e -> {
@@ -60,12 +68,13 @@ public class KintGUI
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
         });
-
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 AntwortText.setText(kintMainNode.getResponse());
             }
         }, 0, 3000L);
+
     }
    }
