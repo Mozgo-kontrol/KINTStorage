@@ -288,11 +288,9 @@ public class KintMainNode extends ApplicationNode
                        }
             }
 
-
             else if (message.equals(Common.HEARTBEAT)) {
 
-                send(sender, "Heartbeat received");
-                System.out.println(" Heartbeat received von SuperNode" + sender);
+                System.out.println(" Heartbeat received von Node" + sender);
 
             }
 

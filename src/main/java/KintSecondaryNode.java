@@ -73,7 +73,7 @@ public class KintSecondaryNode extends ApplicationNode
 */
                 case (Common.HEARTBEAT) -> {
 
-                    send(e.getSender(), "HeartbeatReceived");
+                    send(e.getSender(), Common.HEARTBEAT);
 
                     System.out.println("Heartbeat gesendet von: " + e.getSender());
                 }
