@@ -43,9 +43,12 @@ public class Storage
 
     //Removes the mapping for argument key from _storage, if mapping exists.
     public String delete(int key) {
-        if (_storage.containsKey(key)){
+        if (_storage.containsKey(key)) {
             _storage.remove(key);
+            return Common.OK;
         }
-        return Common.OK;
+        else {
+        return Common.NOMAPPINGFORKEYFOUND;
+        }
     }
 }

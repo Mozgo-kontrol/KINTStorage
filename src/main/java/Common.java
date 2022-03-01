@@ -13,4 +13,6 @@ public class Common
 
     public final static String SUPERSHUTDOWN= "SuperShutdown";
 
+    public final static String NOMAPPINGFORKEYFOUND = "No mapping for key found";
+
 }
