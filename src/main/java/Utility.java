@@ -8,12 +8,20 @@ import java.util.Properties;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Utility
 {
+
+    private  static ObjectMapper _mapper = new ObjectMapper();
+
+  // Map<String,Object> map = mapper.readValue(json, MessageRequest.class);
 
     private static final JSONParser PARSER = new JSONParser();
 
@@ -22,13 +30,33 @@ public class Utility
     }
 
     public static JSONObject parseJSON(String json) {
+
         try {
+
             return (JSONObject) PARSER.parse(json);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public static String parseObjectToJSON(MessageRequest messageRequest)
+            throws JsonProcessingException
+    {
+
+        try {
+            // convert user object to json string and return it
+           return  _mapper.writeValueAsString(messageRequest);
+        }
+        catch (JsonGenerationException | JsonMappingException e) {
+            // catch various errors
+            e.printStackTrace();
+        }
+        return Common.FAULTCONVERTTOJSON;
+
+    }
+
 
     public static long getCRC32Checksum(byte[] bytes) {
         Checksum crc32 = new CRC32();

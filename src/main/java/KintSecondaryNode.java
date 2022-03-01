@@ -86,15 +86,17 @@ public class KintSecondaryNode extends ApplicationNode
                 }
 
                 default -> {
+                    System.out.println(payload);
 
                     JSONObject j = Utility.parseJSON(payload);
-                   // long checksum = (long) j.get("checksum");
+
+
                     assert j != null;
                     MessageRequest message = (MessageRequest) j.get("message");
                         //GET, POST, UPDATE, REMOVE
                     String result;
 
-                        switch (message.getRequest())
+                        switch (message.get_messageRequest())
                         {
                         case GET:
                             //   update();
@@ -105,8 +107,8 @@ public class KintSecondaryNode extends ApplicationNode
                         case POST:
 
                              result = _localeStorage.create(
-                                      message.getContentKey(),
-                                      message.getContent());
+                                      message.get_contentKey(),
+                                      message.get_content());
 
                             System.out.println("Post request von:"+ e.getSender()+"result:" + result);
 

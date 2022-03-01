@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
@@ -131,7 +135,7 @@ public class KintMainNode extends ApplicationNode
         int keyOfSaveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfSaveNode );
         String result;
-        if(keyOfSaveNode ==0){
+        if(keyOfSaveNode==0){
 
             System.out.println("create Local");
             result = createInLocalStorage(key, value);
@@ -155,7 +159,8 @@ public class KintMainNode extends ApplicationNode
     private String createRemoteLocalStorage(
             int receiverAddress,
             Integer key,
-            String value){
+            String value) throws JsonProcessingException
+    {
 
         //TODO erstellen request number aus Task
 
@@ -171,7 +176,9 @@ public class KintMainNode extends ApplicationNode
         JSONObject json = new JSONObject();
         //json.putAll(Map.of("checksum", checksum, "message",  messageRequest));
 
-        json.putAll(Map.of( "message",  messageRequest));
+        json.putAll(Map.of( "message",  Utility.parseObjectToJSON(messageRequest)));
+
+
 
         _requestTasks.addRequestNumber(requestNumber);
 
@@ -228,7 +235,7 @@ public class KintMainNode extends ApplicationNode
 
                 System.out.println("Node is registered and is in the list with key "
                         + getAddressHashMapSize()+ "and Address "
-                        + _addressHashMap.get(getAddressHashMapSize() -1));
+                        + _addressHashMap.get(getAddressHashMapSize()-1));
 
                 send(msgEvent.getSender(), Common.NODEREGISTERED);
             }

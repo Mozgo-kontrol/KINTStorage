@@ -40,23 +40,6 @@ public class MasterNode extends DrasylNode {
             Object payload = ((MessageEvent) event).getPayload();
             MessageRequest messagePayload = (MessageRequest) payload;
             //GET, POST, UPDATE, REMOVE
-            switch (messagePayload.getRequest())
-            {
-            case GET:
-              //  read();
-                break;
-            case  UPDATE:
-             //   update();
-                break;
-            case POST:
-             //   create();
-                break;
-            case REMOVE:
-             //   delete();
-                break;
-            default:
-                break;
-            }
         }
     }
 

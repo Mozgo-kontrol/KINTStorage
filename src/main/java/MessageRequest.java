@@ -1,40 +1,29 @@
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class MessageRequest
 {
-    private final Request messageRequest;  //GET, POST, PATCH, REMOVE
-    private final RequestNumber metadata;
-    private final Integer contentKey;
-   // private final Message content;
-   private final String content;
-    private static final String limiter = ";";
+
+    private  Request _messageRequest;  //GET, POST, PATCH, REMOVE
+    private  RequestNumber _metadata;
+    private  Integer _contentKey;
+    private  String _content;
 
 
     public MessageRequest(Request messageRequest, RequestNumber metadata, Integer contentKey, String content)
     {
-        this.messageRequest = messageRequest;
-        this.metadata = metadata;
-        this.contentKey = contentKey;
-        this.content = content;
+        this._messageRequest = messageRequest;
+        this._metadata = metadata;
+        this._contentKey = contentKey;
+        this._content = content;
     }
-
-    public Integer getContentKey()
-    {
-        return contentKey;
-    }
-
-    public Request getRequest() {
-        return messageRequest;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public RequestNumber getMetadata() {
-        return metadata;
+    public MessageRequest(){}
 }
 
 
-    public static MessageRequest fromString(String s){
+ /*   public static MessageRequest fromString(String s){
 
         String[] splits = s.split(limiter);
         //kommt was sinnvolles raus?
@@ -50,7 +39,7 @@ public class MessageRequest
     public String toString(){
         //... (messageRequest to String, metadata + to String ..., content to String)
         return limiter + limiter;
-    }
+    }*/
 
-}
+
 
