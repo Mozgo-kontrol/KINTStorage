@@ -76,7 +76,7 @@ public class KintGUI
             public void run() {
                 AntwortText.setText(kintMainNode.getResponse());
             }
-        }, 0, 3000L);
+        }, 5000, 3000L);
 
     }
    }
