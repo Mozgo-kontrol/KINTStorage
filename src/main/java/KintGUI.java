@@ -49,7 +49,14 @@ public class KintGUI
         });
 
         Update.addActionListener(e -> {
-
+            try
+            {
+                kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
+            }
 
         });
 

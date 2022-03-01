@@ -47,6 +47,7 @@ public class KintSecondaryNode extends ApplicationNode
     {
         System.out.println("Event received: " + event);
         if (event instanceof NodeOnlineEvent) {
+
             System.out.println("register bei superNode");
             _online = true;
             registerBeiSuper(10000L);

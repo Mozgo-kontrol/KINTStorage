@@ -62,6 +62,7 @@ public class KintMainNode extends ApplicationNode
     private Integer getNaechstefreieStelle(){
         return _addressHashMap.size()-1;
     }
+
     @Override
     public void turnOff()
     {
@@ -82,6 +83,7 @@ public class KintMainNode extends ApplicationNode
 
         shutdown();
     }
+
 
     public void sendHeartbeat(long intervall) {
 
@@ -108,6 +110,7 @@ public class KintMainNode extends ApplicationNode
             }
         }, 0, intervall);
     }
+
     public void turnOffSendHeartbeat(){
         if(timer!=null){
             timer.cancel();
@@ -134,6 +137,46 @@ public class KintMainNode extends ApplicationNode
         }
     }
 
+    public void get(Integer key){
+
+        int keyOfGetNode = calculateHashSum(key);
+        System.out.println("SpeicherOrt :" + keyOfGetNode );
+
+        String result;
+
+        if(keyOfGetNode==0){
+
+            System.out.println("get in Local");
+            getInLocalStorage(key);
+
+            /*if(result.equals(Common.OK)){
+                result = result +" : in key : "+key+" value : "+ _localeStorage.read(key);
+                _response = result;
+            }*/
+        }
+        else {
+           getRemoteLocalStorage(keyOfGetNode, key);
+            //_response = result;
+        }
+    }
+
+    private void getInLocalStorage(Integer key)
+    {
+
+        //TODO get aus Storage
+
+
+        String result = "";
+        _response = result;
+    }
+
+    private void getRemoteLocalStorage(int keyOfGetNode, Integer key)
+    {
+        //TODO get aus remote Storage
+    }
+
+
+
     public void create(Integer key, String value)
             throws JsonProcessingException
     {
@@ -141,9 +184,9 @@ public class KintMainNode extends ApplicationNode
         //TODO pruefen ob key integer ist
         int keyOfSaveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfSaveNode );
+
         String result;
         if(keyOfSaveNode==0){
-
             System.out.println("create Local");
             result = createInLocalStorage(key, value);
             if(result.equals(Common.OK)){
@@ -177,13 +220,6 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,
                 key, value);
 
-
-      /*  long checksum = Utility.getCRC32Checksum(value.getBytes(
-               StandardCharsets.UTF_8));
-*/
-       // JSONObject json = new JSONObject();
-        //json.putAll(Map.of("checksum", checksum, "message",  messageRequest));
-
        String message = Utility.parseObjectToJSON(messageRequest);
 
         _requestTasks.addRequestNumber(requestNumber);
@@ -204,10 +240,6 @@ public class KintMainNode extends ApplicationNode
 
         return "";
     }
-
-
-
-
 
     private Integer calculateHashSum(int key){
         return key % (Common.SUMOFNODE-1);  //hash funktion
@@ -273,6 +305,7 @@ public class KintMainNode extends ApplicationNode
             else {
 
                 _response = message;
+
                 System.out.println("Response became: " + message);
             }
 
