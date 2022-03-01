@@ -102,21 +102,19 @@ public class KintSecondaryNode extends ApplicationNode
 
                         //GET, POST, UPDATE, REMOVE
                         String result;
-
                         switch (message.get_messageRequest())
                         {
                         case GET:
-                            //   update();
+                            result = _localeStorage.read(message.get_contentKey());
+                            System.out.println("Read request von:"+ e.getSender()+"result:" + result);
+                            send(e.getSender(), "value: " + result);
                             break;
                         case POST, UPDATE:
-                             result = _localeStorage.create(
+                            result = _localeStorage.create(
                                       message.get_contentKey(),
                                       message.get_content());
-
                             System.out.println("Post request von:"+ e.getSender()+"result:" + result);
-
                             send(e.getSender(),"Result: " + result);
-
                             break;
                         case REMOVE:
                             result = _localeStorage.delete(message.get_contentKey());

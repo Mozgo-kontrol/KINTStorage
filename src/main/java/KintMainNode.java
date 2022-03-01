@@ -177,51 +177,38 @@ public class KintMainNode extends ApplicationNode
         }
     }
 
-
-    public void get(int key){
+    public void read(int key) throws JsonProcessingException {
 
         int keyOfGetNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfGetNode );
-
-        String result;
-
         if(keyOfGetNode==0){
-
-            System.out.println("get in Local");
-            getInLocalStorage(key);
-
-            /*if(result.equals(Common.OK)){
-                result = result +" : in key : "+key+" value : "+ _localeStorage.read(key);
-                _response = result;
-            }*/
+            System.out.println("get in local");
+            _response = getInLocalStorage(key);
         }
         else {
-           getRemoteLocalStorage(keyOfGetNode, key);
-            //_response = result;
+           _response = getRemoteLocalStorage(keyOfGetNode, key);
         }
     }
 
-    private void getInLocalStorage(Integer key)
-    {
+    private String getInLocalStorage(int key) {
 
-        //TODO get aus Storage
-
-
-        String result = "";
-        _response = result;
+        return _localeStorage.read(key);
     }
 
-    private void getRemoteLocalStorage(int keyOfGetNode, Integer key)
-    {
-        //TODO get aus remote Storage
+    private String getRemoteLocalStorage(
+        int receiverAddress, int key)
+        throws JsonProcessingException {
+
+        RequestNumber requestNumber = new RequestNumber(_requestTasks.getLastRequestNumber()+1);
+        MessageRequest messageRequest = new MessageRequest(Request.GET, requestNumber,
+                key);
+        sendMessage(messageRequest, requestNumber, receiverAddress);
+        return Common.OK;
     }
 
-
-
-    public void create(Integer key, String value)
+    public void create(int key, String value)
             throws JsonProcessingException {
 
-        //TODO pruefen ob key integer ist
         int keyOfSaveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfSaveNode );
 
@@ -241,7 +228,7 @@ public class KintMainNode extends ApplicationNode
     }
 
     private String createInLocalStorage(
-            Integer key,
+            int key,
             String value) {
 
         return _localeStorage.create(key, value);
@@ -249,17 +236,17 @@ public class KintMainNode extends ApplicationNode
 
     private String createRemoteLocalStorage(
             int receiverAddress,
-            Integer key,
+            int key,
             String value) throws JsonProcessingException {
 
         RequestNumber requestNumber = new RequestNumber(_requestTasks.getLastRequestNumber()+1);
         MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,
                 key, value);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.OK;
+        return Common.WAITINGONRESPONSE;
     }
 
-    private Integer calculateHashSum(int key){
+    private int calculateHashSum(int key){
         return key % (Common.SUMOFNODE-1);  //hash funktion
     }
 
@@ -288,8 +275,7 @@ public class KintMainNode extends ApplicationNode
 
             else if (message.equals(Common.REGISTERNODE)) {
 
-                       if(!_addressHashMap.containsValue(sender))
-                       {
+                       if(!_addressHashMap.containsValue(sender)) {
                            _addressHashMap.put(getAddressHashMapSize(), sender);
 
                            System.out.println(
@@ -300,6 +286,7 @@ public class KintMainNode extends ApplicationNode
 
                            send(sender, Common.NODEREGISTERED);
                        }
+
                        else{
                            System.out.println(
                                    "Node is registered and is in the list!");
@@ -307,24 +294,24 @@ public class KintMainNode extends ApplicationNode
             }
 
             else if (message.equals(Common.HEARTBEAT)) {
-
                 System.out.println(" Heartbeat received von Node" + sender);
-
             }
 
             else if (message.equals("NodeShutdown"))
             {
                 removeAddressFromHashMap(sender);
                 System.out.println("NodeShutdown Node mit Address " + sender);
-
             }
-            else {
 
+            else if (message.contains("value: ")) {
                 _response = message;
-
                 System.out.println("Response became: " + message);
             }
 
+            else {
+                _response = message;
+                System.out.println("Response became: " + message);
+            }
         }
         System.out.println("Event received: " + event);
     }

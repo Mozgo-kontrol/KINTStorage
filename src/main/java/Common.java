@@ -15,5 +15,6 @@ public class Common
 
     public final static String NOMAPPINGFORKEYFOUND = "No mapping for key found";
     public final static String UNABLETOEXECUTE= "Unable to execute message";
+    public final static String WAITINGONRESPONSE= "Waiting on response";
 
 }

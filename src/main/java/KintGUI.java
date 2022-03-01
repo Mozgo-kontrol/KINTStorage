@@ -40,7 +40,14 @@ public class KintGUI
         });
 
         Read.addActionListener(e -> {
-           // AntwortText.setText(kintMainNode);
+            try
+            {
+                kintMainNode.read(Integer.parseInt(Key.getText()));
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
+            }
         });
 
         Write.addActionListener(e -> {
