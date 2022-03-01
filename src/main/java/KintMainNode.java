@@ -222,6 +222,7 @@ public class KintMainNode extends ApplicationNode
             MessageEvent msgEvent = (MessageEvent) event;
             String message = msgEvent.getPayload().toString();
 
+
             if (event instanceof MessageResponseEvent) {
 
                 _response = message;

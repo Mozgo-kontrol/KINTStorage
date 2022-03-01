@@ -110,7 +110,6 @@ public class KintSecondaryNode extends ApplicationNode
                             //   update();
                             break;
                         case POST:
-
                              result = _localeStorage.create(
                                       message.get_contentKey(),
                                       message.get_content());
