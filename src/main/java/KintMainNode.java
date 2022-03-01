@@ -229,7 +229,7 @@ public class KintMainNode extends ApplicationNode
                 System.out.println("Response became: " + message);
             }
 
-            if (message.equals(Common.REGISTERNODE)) {
+            else if (message.equals(Common.REGISTERNODE)) {
 
 
                 _addressHashMap.put(getAddressHashMapSize(), msgEvent.getSender());
@@ -254,6 +254,11 @@ public class KintMainNode extends ApplicationNode
             {
                 _addressHashMap.remove(msgEvent.getSender());
 
+            }
+            else {
+
+                _response = message;
+                System.out.println("Response became: " + message);
             }
 
         }

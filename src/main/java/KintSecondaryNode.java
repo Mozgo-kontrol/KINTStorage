@@ -116,8 +116,8 @@ public class KintSecondaryNode extends ApplicationNode
 
                             System.out.println("Post request von:"+ e.getSender()+"result:" + result);
 
-                            MessageEvent messageEvent = MessageResponseEvent.of(identity.getAddress(), result);
-                            send(e.getSender(), messageEvent);
+                          //  MessageEvent messageEvent = MessageResponseEvent.of(identity.getAddress(), result);
+                            send(e.getSender(),"Result:" + result);
 
                             break;
                         case REMOVE:
