@@ -55,6 +55,9 @@ public class KintMainNode extends ApplicationNode
        return _addressHashMap.size();
     }
 
+    private Integer getNaechstefreieStelle(){
+        return _addressHashMap.size()-1;
+    }
     @Override
     public void turnOff()
     {
@@ -85,7 +88,8 @@ public class KintMainNode extends ApplicationNode
 
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
-                    if(entry.getKey().intValue()!=0){
+                    if(entry.getKey()!=0){
+
                         String payload = "Heartbeat";
                         send(entry.getValue(), payload).exceptionally(e -> {
                             throw new RuntimeException(
@@ -219,11 +223,12 @@ public class KintMainNode extends ApplicationNode
 
             if (message.equals(Common.REGISTERNODE)) {
 
-                _addressHashMap.put(getAddressHashMapSize(), msgEvent.getSender());
+
+                _addressHashMap.put(getNaechstefreieStelle(), msgEvent.getSender());
 
                 System.out.println("Node is registered and is in the list with key "
-                        + getAddressHashMapSize()+ "and Address "
-                        + _addressHashMap.get(getAddressHashMapSize()));
+                        + getNaechstefreieStelle()+ "and Address "
+                        + _addressHashMap.get(getNaechstefreieStelle()));
 
                 send(msgEvent.getSender(), Common.NODEREGISTERED);
             }

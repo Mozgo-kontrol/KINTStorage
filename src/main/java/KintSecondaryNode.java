@@ -48,7 +48,7 @@ public class KintSecondaryNode extends ApplicationNode
         if (event instanceof NodeOnlineEvent) {
             System.out.println("register bei superNode");
             _online = true;
-            registerBeiSuper(3000L);
+            registerBeiSuper(10000L);
         }
 
         else if (event instanceof NodeDownEvent)
@@ -142,17 +142,21 @@ public class KintSecondaryNode extends ApplicationNode
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Register bei Super Send");
-                send(_superNode, Common.REGISTERNODE).exceptionally(e -> {
-                    throw new RuntimeException(
-                            "Unable to process message.", e);
-                });
 
                 if(_isRegisteredBeiSuperNode){
                     timer.cancel();
                     System.out.println("Node ist registered bei Super");
                     System.out.println("Timer cancel");
                 }
+                else {
+
+                    System.out.println("Register bei Super Send");
+                    send(_superNode, Common.REGISTERNODE).exceptionally(e -> {
+                        throw new RuntimeException(
+                                "Unable to process message.", e);
+                    });
+                }
+
             }
         }, 0, intervall);
     }
