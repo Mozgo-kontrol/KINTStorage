@@ -107,10 +107,7 @@ public class KintSecondaryNode extends ApplicationNode
                         case GET:
                             //   update();
                             break;
-                        case  UPDATE:
-                            //   update();
-                            break;
-                        case POST:
+                        case POST, UPDATE:
                              result = _localeStorage.create(
                                       message.get_contentKey(),
                                       message.get_content());
@@ -121,7 +118,9 @@ public class KintSecondaryNode extends ApplicationNode
 
                             break;
                         case REMOVE:
-                            //   delete();
+                            result = _localeStorage.delete(message.get_contentKey());
+                            System.out.println("Remove request von:"+ e.getSender()+"result:" + result);
+                            send(e.getSender(),"Result:" + result);
                             break;
                         default:
                             break;
