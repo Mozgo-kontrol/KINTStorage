@@ -3,6 +3,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
 import lombok.Setter;
 import javax.swing.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Setter
 @Getter
@@ -22,22 +24,23 @@ public class KintGUI
     private JPanel mainGUI;
     private KintMainNode kintMainNode;
 
+    private Timer timer;
+
     public KintGUI(){
 
         Delete.addActionListener(e -> {
 
         });
 
-        //AntwortText.setText(kintMainNode.getResponse()+"");
-
         Read.addActionListener(e -> {
            // AntwortText.setText(kintMainNode);
         });
 
         Write.addActionListener(e -> {
+
             try
             {
-                AntwortText.setText(kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText()));
+                kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
             }
             catch (JsonProcessingException jsonProcessingException)
             {
@@ -46,15 +49,23 @@ public class KintGUI
         });
 
         Update.addActionListener(e -> {
-
+            kintMainNode.turnOffSendHeartbeat();
         });
-        HeartBeatOnButton.addActionListener(e -> {
 
+        HeartBeatOnButton.addActionListener(e -> {
+            kintMainNode.sendHeartbeat(5000L);
         });
 
 
         HeartBeatOffButton.addActionListener(e -> {
-
+            kintMainNode.turnOffSendHeartbeat();
         });
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                AntwortText.setText(kintMainNode.getResponse());
+            }
+        }, 0, 3000L);
     }
    }

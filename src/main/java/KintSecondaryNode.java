@@ -3,10 +3,7 @@ import lombok.SneakyThrows;
 import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
-import org.drasyl.node.event.Event;
-import org.drasyl.node.event.MessageEvent;
-import org.drasyl.node.event.NodeDownEvent;
-import org.drasyl.node.event.NodeOnlineEvent;
+import org.drasyl.node.event.*;
 import org.json.simple.JSONObject;
 
 import java.io.DataInput;
@@ -42,22 +39,25 @@ public class KintSecondaryNode extends ApplicationNode
 
     @Override public void turnOff()
     {
-
+        send(_superNode, "NodeShutdown");
     }
 
-    @SneakyThrows @Override public void onEvent(Event event)
+
+    @Override @SneakyThrows public void onEvent(Event event)
     {
         System.out.println("Event received: " + event);
         if (event instanceof NodeOnlineEvent) {
             System.out.println("register bei superNode");
             _online = true;
             registerBeiSuper(10000L);
+
+
         }
 
         else if (event instanceof NodeDownEvent)
         {
-            System.exit(0);
             turnOff();
+            System.exit(0);
         }
 
         else if (event instanceof MessageEvent) {
@@ -79,11 +79,12 @@ public class KintSecondaryNode extends ApplicationNode
 
                 case (Common.NODEREGISTERED) -> {
                     _isRegisteredBeiSuperNode = true;
-
                     System.out.println("Node registered");
+
                 }
 
                 case (Common.SUPERSHUTDOWN) -> {
+
                     System.out.println("Super node gone offline");
                     shutdown();
                 }
@@ -116,8 +117,7 @@ public class KintSecondaryNode extends ApplicationNode
 
                             System.out.println("Post request von:"+ e.getSender()+"result:" + result);
 
-                          //  MessageEvent messageEvent = MessageResponseEvent.of(identity.getAddress(), result);
-                            send(e.getSender(),"Result:" + result);
+                            send(e.getSender(),"Result: " + result);
 
                             break;
                         case REMOVE:

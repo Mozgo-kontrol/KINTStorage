@@ -108,6 +108,12 @@ public class KintMainNode extends ApplicationNode
             }
         }, 0, intervall);
     }
+    public void turnOffSendHeartbeat(){
+        if(timer!=null){
+            timer.cancel();
+        }
+
+    }
 
     public void sendToAllNodes(String message) {
 
@@ -129,7 +135,7 @@ public class KintMainNode extends ApplicationNode
         }
     }
 
-    public String create(Integer key, String value)
+    public void create(Integer key, String value)
             throws JsonProcessingException
     {
 
@@ -143,12 +149,13 @@ public class KintMainNode extends ApplicationNode
             result = createInLocalStorage(key, value);
             if(result.equals(Common.OK)){
                result = result +" : in key : "+key+" value : "+ _localeStorage.read(key);
+                _response = result;
             }
         }
         else {
             result = createRemoteLocalStorage(keyOfSaveNode, key,value);
+            _response = result;
         }
-        return result;
     }
 
     private String createInLocalStorage(
@@ -220,6 +227,7 @@ public class KintMainNode extends ApplicationNode
         if (event instanceof MessageEvent) {
 
             MessageEvent msgEvent = (MessageEvent) event;
+            DrasylAddress sender = msgEvent.getSender();
             String message = msgEvent.getPayload().toString();
 
 
@@ -231,29 +239,35 @@ public class KintMainNode extends ApplicationNode
 
             else if (message.equals(Common.REGISTERNODE)) {
 
+                       if(!_addressHashMap.containsValue(sender))
+                       {
+                           _addressHashMap.put(getAddressHashMapSize(), sender);
 
-                _addressHashMap.put(getAddressHashMapSize(), msgEvent.getSender());
+                           System.out.println(
+                                   "Node is registered and is in the list with key "
+                                           + getAddressHashMapSize() + "and Address "
+                                           + _addressHashMap.get(
+                                           getAddressHashMapSize() - 1));
 
-                System.out.println("Node is registered and is in the list with key "
-                        + getAddressHashMapSize()+ "and Address "
-                        + _addressHashMap.get(getAddressHashMapSize()-1));
-
-                send(msgEvent.getSender(), Common.NODEREGISTERED);
+                           send(sender, Common.NODEREGISTERED);
+                       }
+                       else{
+                           System.out.println(
+                                   "Node is registered and is in the list!");
+                       }
             }
 
 
             else if (message.equals(Common.HEARTBEAT)) {
 
-                DrasylAddress sender = msgEvent.getSender();
                 send(sender, "Heartbeat received");
-                System.out.println(msgEvent.getSender());
+                System.out.println(" Heartbeat received von SuperNode" + sender);
 
             }
 
             else if (message.equals("NodeShutdown"))
             {
-                _addressHashMap.remove(msgEvent.getSender());
-
+                removeAddressFromHashMap(sender);
             }
             else {
 
@@ -263,6 +277,26 @@ public class KintMainNode extends ApplicationNode
 
         }
         System.out.println("Event received: " + event);
+    }
+
+
+    private void removeAddressFromHashMap(DrasylAddress address){
+
+        System.out.println(" removeAddressFromHashMap: " + address);
+
+        if(_addressHashMap.containsValue(address))
+        {
+            for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
+            {
+                if (entry.getValue().equals(address))
+                {
+                    _addressHashMap.remove(entry.getKey());
+                }
+                // do what you have to do here
+                // In your case, another loop.
+            }
+        }
+
     }
 
 }
