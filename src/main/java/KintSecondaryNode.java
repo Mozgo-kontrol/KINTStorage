@@ -63,10 +63,10 @@ public class KintSecondaryNode extends ApplicationNode
             String payload = e.getPayload().toString();
 
             switch (payload) {
-                case ("registerpeer") -> {
+              /*  case ("registerpeer") -> {
 
                 }
-
+*/
                 case (Common.HEARTBEAT) -> {
 
                     send(e.getSender(), "HeartbeatReceived");
@@ -80,16 +80,15 @@ public class KintSecondaryNode extends ApplicationNode
                     System.out.println("Node registered");
                 }
 
-                case ("SuperShutdown") -> {
+                case (Common.SUPERSHUTDOWN) -> {
                     System.out.println("Super node gone offline");
                     shutdown();
                 }
 
                 default -> {
+
                     JSONObject j = Utility.parseJSON(payload);
-
                    // long checksum = (long) j.get("checksum");
-
                     assert j != null;
                     MessageRequest message = (MessageRequest) j.get("message");
                         //GET, POST, UPDATE, REMOVE
