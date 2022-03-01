@@ -267,6 +267,8 @@ public class KintMainNode extends ApplicationNode
             else if (message.equals("NodeShutdown"))
             {
                 removeAddressFromHashMap(sender);
+                System.out.println("NodeShutdown Node mit Address " + sender);
+
             }
             else {
 
