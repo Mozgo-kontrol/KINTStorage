@@ -18,8 +18,12 @@ public class KintGUI
     private JButton Update;
     private JButton HeartBeatOnButton;
     private JButton HeartBeatOffButton;
-    private JCheckBox CheckBox;
     private JPanel mainGUI;
+    private JButton turnOffButton;
+    private JRadioButton node1RadioButton;
+    private JRadioButton node2RadioButton;
+    private JRadioButton node4RadioButton;
+    private JRadioButton node3RadioButton;
     private KintMainNode kintMainNode;
 
     public KintGUI(){
@@ -80,6 +84,16 @@ public class KintGUI
 
             }
         });
+
+        turnOffButton.addActionListener(e -> {});
+
+        node1RadioButton.addActionListener(e -> {});
+
+        node2RadioButton.addActionListener(e -> {});
+
+        node3RadioButton.addActionListener(e -> {});
+
+        node4RadioButton.addActionListener(e -> {});
 
         HeartBeatOffButton.addActionListener(new ActionListener() {
             @Override
