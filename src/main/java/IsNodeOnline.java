@@ -7,7 +7,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class IsNodeOnline {
 
-    private final int CAPACITY = 8;
+    private final int CAPACITY = 6; //6 -> wenn 30 sek (5*6) keine Heartbeats, dann ist _isNodeOnline = false
     private Queue<Integer> _lastHeartbeatList;
     private boolean _isNodeOnline = false;
 

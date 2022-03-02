@@ -19,8 +19,7 @@ public class KintMainNode extends ApplicationNode
     private Tasks _requestTasks = new Tasks();
     private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
     private Timer timer;
-    private HashMap <Integer, IsNodeOnline> _Map = new HashMap<>();
-
+    private HashMap <Integer, IsNodeOnline> _isNodeOnlineHashMap = new HashMap<>();
 
 
 
@@ -275,6 +274,7 @@ public class KintMainNode extends ApplicationNode
             else if (message.equals(Common.REGISTERNODE)) {
 
                        if(!_addressHashMap.containsValue(sender)) {
+
                            _addressHashMap.put(getAddressHashMapSize(), sender);
                            System.out.println(
                                    "Node is registered and is in the list with key "
