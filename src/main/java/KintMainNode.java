@@ -274,7 +274,7 @@ public class KintMainNode extends ApplicationNode
             else if (message.equals(Common.REGISTERNODE)) {
 
                        if(!_addressHashMap.containsValue(sender)) {
-
+                            //Hier in _isNodeOnlineHashMap eintragen
                            _addressHashMap.put(getAddressHashMapSize(), sender);
                            System.out.println(
                                    "Node is registered and is in the list with key "
