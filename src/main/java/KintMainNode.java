@@ -64,10 +64,9 @@ public class KintMainNode extends ApplicationNode
         // Save to file
         //Utility.saveHashmapToFile(_storage);
         System.out.println("Turning off");
-
+        timer.cancel();
         shutdown();
     }
-
 
     public void sendHeartbeat(long intervall) {
 
@@ -79,7 +78,6 @@ public class KintMainNode extends ApplicationNode
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
                     if(entry.getKey()!=0){
-
                         String payload = "Heartbeat";
                         send(entry.getValue(), payload).exceptionally(e -> {
                             throw new RuntimeException(
