@@ -14,10 +14,8 @@ import java.util.*;
 public class KintSecondaryNode extends ApplicationNode
 {
 
-    private Storage _localeStorage = new Storage();
+    private final Storage _localeStorage = new Storage();
     private Timer timer;
-
-
     private boolean _online = false;
 
     private boolean _isRegisteredBeiSuperNode = false;
@@ -55,9 +53,10 @@ public class KintSecondaryNode extends ApplicationNode
         if (event instanceof PeerRelayEvent) {
 
             _isRegisteredBeiSuperNode = false;
-            System.out.println("Connection with Master was fault superNode");
-            registerBeiSuper(10000L);
+            System.out.println("Connection with superNode was fault");
             System.out.println("Register bei superNode");
+            registerBeiSuper(10000L);
+
 
         }
 
