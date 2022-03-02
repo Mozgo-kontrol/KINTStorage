@@ -66,6 +66,8 @@ public class KintMainNode extends ApplicationNode
         System.out.println("Turning off");
         timer.cancel();
         shutdown();
+
+        System.exit(0);
     }
 
     public void sendHeartbeat(long intervall) {

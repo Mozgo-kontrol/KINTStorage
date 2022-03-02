@@ -91,6 +91,7 @@ public class KintSecondaryNode extends ApplicationNode
 
                     System.out.println("Super node SuperShutdown");
                     shutdown();
+                    System.exit(0);
                 }
 
                 default -> {
