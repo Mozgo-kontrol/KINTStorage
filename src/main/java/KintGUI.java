@@ -27,7 +27,10 @@ public class KintGUI
     private JRadioButton node2RadioButton;
     private KintMainNode kintMainNode;
 
+
+
     private Timer timer;
+    private Timer timer2;
 
     public KintGUI(){
 
@@ -85,20 +88,34 @@ public class KintGUI
 
         turnOffButton.addActionListener(e -> {   kintMainNode.turnOff();     });
 
-        node0RadioButton.addChangeListener(e -> {
-            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node0RadioButton.setSelected(false);
-            else node0RadioButton.setSelected(true);
-        });
 
-        node1RadioButton.addChangeListener(e -> {
-            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
-            else node1RadioButton.setSelected(true);
-        });
+        timer2 = new Timer();
 
-        node2RadioButton.addChangeListener(e -> {
-            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node2RadioButton.setSelected(false);
-            else node2RadioButton.setSelected(true);
-        });
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                node0RadioButton.setSelected(false);
+                node1RadioButton.setSelected(false);
+                node2RadioButton.setSelected(false);
+
+                node0RadioButton.addChangeListener(e -> {
+                    if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node0RadioButton.setSelected(false);
+                    else node0RadioButton.setSelected(true);
+                });
+
+                node1RadioButton.addChangeListener(e -> {
+                    if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
+                    else node1RadioButton.setSelected(true);
+                });
+
+                node2RadioButton.addChangeListener(e -> {
+                    if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node2RadioButton.setSelected(false);
+                    else node2RadioButton.setSelected(true);
+                });;
+            }
+        }, 5000, 3000L);
+
 
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
