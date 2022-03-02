@@ -81,9 +81,21 @@ public class KintGUI
             kintMainNode.sendHeartbeat(5000L);
         });
 
-        turnOffButton.addActionListener(e -> {        });
+        turnOffButton.addActionListener(e -> {
 
-        node0RadioButton.addActionListener(e -> {});
+            kintMainNode.turnOff();
+
+        });
+        Timer timer2 = new Timer();
+
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                node0RadioButton.setSelected(false);
+                node1RadioButton.setSelected(false);
+            }
+        }, 5000, 3000L);
+
 
         node1RadioButton.addActionListener(e -> {});
 

@@ -21,9 +21,6 @@ public class KintMainNode extends ApplicationNode
     private Timer timer;
     private Timer checkHeartbeats = new Timer();
 
-    //private HashMap<Integer, String> _storage = _localeStorage.getStorage();
-    //Address allen Knoten im Netz
-    //private Set<DrasylAddress> _addressSet = new HashSet<>();
 
 
 
@@ -46,10 +43,6 @@ public class KintMainNode extends ApplicationNode
        return _addressHashMap.size();
     }
 
-    private Integer getNaechstefreieStelle(){
-        return _addressHashMap.size()-1;
-    }
-
     @Override
     public void turnOff()
     {
@@ -64,12 +57,12 @@ public class KintMainNode extends ApplicationNode
         }
         // Save to file
         //Utility.saveHashmapToFile(_storage);
-
         System.out.println("Turning off");
-
+        timer.cancel();
         shutdown();
-    }
 
+        System.exit(0);
+    }
 
     public void sendHeartbeat(long intervall) {
 
@@ -81,7 +74,6 @@ public class KintMainNode extends ApplicationNode
                 for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
                 {
                     if(entry.getKey()!=0){
-
                         String payload = "Heartbeat";
                         send(entry.getValue(), payload).exceptionally(e -> {
                             throw new RuntimeException(
@@ -92,6 +84,14 @@ public class KintMainNode extends ApplicationNode
                         System.out.println("Gesendet an: " + entry.getValue() + " Payload: " + payload);
                     }
                 }
+
+                for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
+                {
+                    if(entry.getKey()!=0){
+
+                    }
+                }
+
 
             }
         }, 0, intervall);
@@ -259,23 +259,6 @@ public class KintMainNode extends ApplicationNode
 
         }
 
-        if (event instanceof NodeOfflineEvent) {
-
-            turnOff();
-            _online = false;
-            System.out.println("Node is Offline:");
-            
-        }
-
-        if (event instanceof NodeDownEvent) {
-
-            turnOff();
-            _online = false;
-            System.out.println("Node Down is Down");
-
-        }
-
-
         if (event instanceof MessageEvent) {
 
             MessageEvent msgEvent = (MessageEvent) event;
@@ -309,8 +292,13 @@ public class KintMainNode extends ApplicationNode
             }
 
             else if (message.equals(Common.HEARTBEAT)) {
+
+
                 System.out.println(" Heartbeat received von Node" + sender);
+                //
             }
+
+
 
             else if (message.equals("NodeShutdown"))
             {
