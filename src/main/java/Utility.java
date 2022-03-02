@@ -21,10 +21,10 @@ public class Utility
 {
 
     private  static ObjectMapper _mapper = new ObjectMapper();
+    private static final JSONParser PARSER = new JSONParser();
 
     //= _mapper.readValue(json, MessageRequest.class);
 
-    private static final JSONParser PARSER = new JSONParser();
 
     private Utility()
     {

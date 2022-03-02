@@ -1,5 +1,8 @@
+
+
 public class Message
 {
+    /*
     final private Integer messageKey;
     final private String messageType; //Int, String, Boolean
     final private String messageValue;
@@ -23,4 +26,5 @@ public class Message
     {
         return messageValue;
     }
+     */
 }

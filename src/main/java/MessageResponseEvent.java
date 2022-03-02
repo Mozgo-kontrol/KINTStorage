@@ -7,7 +7,7 @@ class MessageResponseEvent extends MessageEvent
     private DrasylAddress _sender;
     private Object _payload;
 
-    //TODO responce Enum erstellen
+    //TODO response Enum erstellen
     //200 = OK
     //300 = REPEAT
     //400 = FAULT CLIENT
@@ -23,6 +23,7 @@ class MessageResponseEvent extends MessageEvent
     {
         super();
     }
+
     @Override
     public DrasylAddress getSender()
     {

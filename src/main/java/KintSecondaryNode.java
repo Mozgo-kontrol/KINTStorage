@@ -111,8 +111,8 @@ public class KintSecondaryNode extends ApplicationNode
                             break;
                         case POST, UPDATE:
                             result = _localeStorage.create(
-                                      message.get_contentKey(),
-                                      message.get_content());
+                                message.get_contentKey(),
+                                message.get_content());
                             System.out.println("Post request von:"+ e.getSender()+"result:" + result);
                             send(e.getSender(),"Result: " + result);
                             break;
