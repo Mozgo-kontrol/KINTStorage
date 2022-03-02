@@ -19,7 +19,7 @@ public class KintMainNode extends ApplicationNode
     private Tasks _requestTasks = new Tasks();
     private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
     private Timer timer;
-    private Timer checkHeartbeats = new Timer();
+    private HashMap <Integer, IsNodeOnline> _Map = new HashMap<>();
 
 
 
@@ -352,5 +352,6 @@ public class KintMainNode extends ApplicationNode
         }
 
     }
+
 
 }
