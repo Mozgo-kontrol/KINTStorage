@@ -257,23 +257,6 @@ public class KintMainNode extends ApplicationNode
 
         }
 
-        if (event instanceof NodeOfflineEvent) {
-
-            turnOff();
-            _online = false;
-            System.out.println("Node is Offline:");
-            
-        }
-
-        if (event instanceof NodeDownEvent) {
-
-            turnOff();
-            _online = false;
-            System.out.println("Node Down is Down");
-
-        }
-
-
         if (event instanceof MessageEvent) {
 
             MessageEvent msgEvent = (MessageEvent) event;
@@ -307,6 +290,7 @@ public class KintMainNode extends ApplicationNode
             }
 
             else if (message.equals(Common.HEARTBEAT)) {
+
                 System.out.println(" Heartbeat received von Node" + sender);
             }
 

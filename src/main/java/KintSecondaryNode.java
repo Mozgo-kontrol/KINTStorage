@@ -96,8 +96,6 @@ public class KintSecondaryNode extends ApplicationNode
 
                 default -> {
 
-                   // System.out.println(payload);
-
                     MessageRequest message = Utility.parseJSONToMessageRequest(payload);
 
                         //GET, POST, UPDATE, REMOVE
