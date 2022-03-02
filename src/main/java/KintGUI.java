@@ -86,8 +86,8 @@ public class KintGUI
         turnOffButton.addActionListener(e -> {   kintMainNode.turnOff();     });
 
         node0RadioButton.addChangeListener(e -> {
-            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
-            else node1RadioButton.setSelected(true);
+            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node0RadioButton.setSelected(false);
+            else node0RadioButton.setSelected(true);
         });
 
         node1RadioButton.addChangeListener(e -> {
@@ -96,8 +96,8 @@ public class KintGUI
         });
 
         node2RadioButton.addChangeListener(e -> {
-            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
-            else node1RadioButton.setSelected(true);
+            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node2RadioButton.setSelected(false);
+            else node2RadioButton.setSelected(true);
         });
 
         HeartBeatOffButton.addActionListener(e -> {
