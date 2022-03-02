@@ -22,7 +22,7 @@ public class KintSecondaryNode extends ApplicationNode
 
     private boolean _online = false;
 
-    private boolean _isRegisteredBeiSuperNode = false;
+    public static boolean _isRegisteredBeiSuperNode = false;
 
     private final String _superNode;
 

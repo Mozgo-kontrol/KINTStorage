@@ -31,6 +31,8 @@ public class KintGUI
 
     public KintGUI(){
 
+
+
         Delete.addActionListener(e -> {
             try
             {
@@ -83,11 +85,20 @@ public class KintGUI
 
         turnOffButton.addActionListener(e -> {   kintMainNode.turnOff();     });
 
-        node0RadioButton.addActionListener(e -> {});
+        node0RadioButton.addChangeListener(e -> {
+            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
+            else node1RadioButton.setSelected(true);
+        });
 
-        node1RadioButton.addActionListener(e -> {});
+        node1RadioButton.addChangeListener(e -> {
+            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
+            else node1RadioButton.setSelected(true);
+        });
 
-        node2RadioButton.addActionListener(e -> {});
+        node2RadioButton.addChangeListener(e -> {
+            if (KintSecondaryNode._isRegisteredBeiSuperNode = false) node1RadioButton.setSelected(false);
+            else node1RadioButton.setSelected(true);
+        });
 
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
