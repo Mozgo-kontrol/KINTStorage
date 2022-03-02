@@ -81,7 +81,7 @@ public class KintGUI
             kintMainNode.sendHeartbeat(5000L);
         });
 
-        turnOffButton.addActionListener(e -> {        });
+        turnOffButton.addActionListener(e -> {   kintMainNode.turnOff();     });
 
         node0RadioButton.addActionListener(e -> {});
 
