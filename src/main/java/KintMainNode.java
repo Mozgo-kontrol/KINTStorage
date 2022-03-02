@@ -245,7 +245,7 @@ public class KintMainNode extends ApplicationNode
     }
 
     private int calculateHashSum(int key) {
-        return key % (Common.SUMOFNODE-1);  //hash funktion
+        return key % (Common.SUMOFNODE);  //hash funktion
     }
 
 
@@ -275,12 +275,11 @@ public class KintMainNode extends ApplicationNode
 
                        if(!_addressHashMap.containsValue(sender)) {
                            _addressHashMap.put(getAddressHashMapSize(), sender);
-
                            System.out.println(
                                    "Node is registered and is in the list with key "
-                                           + getAddressHashMapSize() + "and Address "
+                                           + (getAddressHashMapSize() - 1) + " and Address "
                                            + _addressHashMap.get(
-                                           getAddressHashMapSize() - 1));
+                                           getAddressHashMapSize() -1));
 
                            send(sender, Common.NODEREGISTERED);
                            showMeNodes();
