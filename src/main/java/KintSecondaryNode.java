@@ -8,10 +8,8 @@ import org.json.simple.JSONObject;
 
 import java.io.DataInput;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.sql.Array;
+import java.util.*;
 
 public class KintSecondaryNode extends ApplicationNode
 {
@@ -39,7 +37,7 @@ public class KintSecondaryNode extends ApplicationNode
 
     @Override public void turnOff()
     {
-        send(_superNode, "NodeShutdown");
+       //send(_superNode, "NodeShutdown");
     }
 
 
@@ -52,13 +50,15 @@ public class KintSecondaryNode extends ApplicationNode
             _online = true;
             registerBeiSuper(10000L);
 
-
         }
 
-        else if (event instanceof NodeDownEvent)
-        {
-            turnOff();
-            System.exit(0);
+        if (event instanceof PeerRelayEvent) {
+
+            _isRegisteredBeiSuperNode = false;
+            System.out.println("Connection with Master was fault superNode");
+            registerBeiSuper(10000L);
+            System.out.println("Register bei superNode");
+
         }
 
         else if (event instanceof MessageEvent) {
@@ -67,15 +67,19 @@ public class KintSecondaryNode extends ApplicationNode
             String payload = e.getPayload().toString();
 
             switch (payload) {
-              /*  case ("registerpeer") -> {
+
+                case ("registerpeer") -> {
 
                 }
-*/
+
                 case (Common.HEARTBEAT) -> {
+                    String nodeName ="";
+                    if(e.getSender().toString().equals(_superNode)){ nodeName = " Master ";}
+                    System.out.println("Heartbeat become von: "
+                            +nodeName
+                            +e.getSender());
 
                     send(e.getSender(), Common.HEARTBEAT);
-
-                    System.out.println("Heartbeat gesendet von: " + e.getSender());
                 }
 
                 case (Common.NODEREGISTERED) -> {
@@ -85,17 +89,14 @@ public class KintSecondaryNode extends ApplicationNode
                 }
 
                 case (Common.SUPERSHUTDOWN) -> {
-                    System.out.println("Super node gone offline");
+
+                    System.out.println("Super node SuperShutdown");
                     shutdown();
                 }
 
                 default -> {
 
-                    System.out.println(payload);
-
-                   // ObjectMapper instantiat
-
-                   // Deserialization into the `Employee` class
+                   // System.out.println(payload);
 
                     MessageRequest message = Utility.parseJSONToMessageRequest(payload);
 
@@ -124,17 +125,6 @@ public class KintSecondaryNode extends ApplicationNode
                             break;
                         }
                     }
-
-
-                   /* long newChecksum = Utility.getCRC32Checksum(message.getBytes(
-                            StandardCharsets.UTF_8));
-                    if (checksum != newChecksum) {
-                        send(_superNode, "ChecksumFailure");
-                    } else {
-                        send(_superNode, "Success");
-                        System.out.println(message);
-                    }*/
-
                 }
             }
 

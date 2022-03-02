@@ -63,7 +63,6 @@ public class KintMainNode extends ApplicationNode
         }
         // Save to file
         //Utility.saveHashmapToFile(_storage);
-
         System.out.println("Turning off");
 
         shutdown();
