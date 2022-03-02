@@ -85,7 +85,6 @@ public class KintSecondaryNode extends ApplicationNode
                 }
 
                 case (Common.SUPERSHUTDOWN) -> {
-
                     System.out.println("Super node gone offline");
                     shutdown();
                 }

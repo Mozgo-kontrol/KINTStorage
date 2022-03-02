@@ -1,7 +1,4 @@
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
@@ -9,9 +6,10 @@ import org.drasyl.node.event.*;
 import org.json.simple.JSONObject;
 
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KintMainNode extends ApplicationNode
 {
@@ -259,6 +257,7 @@ public class KintMainNode extends ApplicationNode
             _online = true;
 
         }
+
         if (event instanceof NodeOfflineEvent) {
 
             turnOff();

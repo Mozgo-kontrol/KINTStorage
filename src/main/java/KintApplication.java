@@ -11,7 +11,6 @@ public class KintApplication
 
     public static void main(String[] args)
     {
-       // Runtime.getRuntime().addShutdownHook(new Thread(() -> node.turnOff()));
 
         if (args.length > 1)
         {

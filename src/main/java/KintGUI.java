@@ -84,8 +84,8 @@ public class KintGUI
             kintMainNode.turnOffSendHeartbeat();
         });
 
-        timer = new Timer();
 
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
