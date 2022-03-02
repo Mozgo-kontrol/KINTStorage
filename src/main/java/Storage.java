@@ -19,7 +19,7 @@ public class Storage
         if (_storage.containsKey(key)){
             return _storage.get(key);
         }
-        return "false";
+        return Common.FAULT;
     }
 
     public Integer getSize(){
@@ -28,24 +28,27 @@ public class Storage
 
     //If _storage previously contained a mapping for argument key, the old value is replaced by argument value.
     //If _storage previously did not contain a mapping for argument key, maps argument key to argument value.
-    private String update(int key, String value) {
+    public String update(int key, String value) {
         _storage.put(key, value);
         return Common.OK;
     }
 
     //If _storage previously did not contain a mapping for argument key, maps argument key to argument value.
     //If _storage previously contained a mapping for argument key, the old value is replaced by argument value.
-    private String create(int key, String value) {
+    public String create(int key, String value) {
 
         _storage.put(key, value);
         return Common.OK;
     }
 
     //Removes the mapping for argument key from _storage, if mapping exists.
-    private String delete(int key) {
-        if (_storage.containsKey(key)){
+    public String delete(int key) {
+        if (_storage.containsKey(key)) {
             _storage.remove(key);
+            return Common.OK;
         }
-        return Common.OK;
+        else {
+        return Common.NOMAPPINGFORKEYFOUND;
+        }
     }
 }

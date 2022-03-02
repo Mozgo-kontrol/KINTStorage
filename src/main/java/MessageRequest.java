@@ -1,33 +1,33 @@
-import org.drasyl.identity.DrasylAddress;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.lang.reflect.Array;
-
-
+@Getter
+@Setter
 public class MessageRequest
 {
-    private final Request messageRequest;  //GET, POST, PATCH, REMOVE
-    private final Array metadata;
-    private final Message content;
+
+    private  Request _messageRequest;  //GET, POST, PATCH, REMOVE
+    private  RequestNumber _metadata;
+    private  Integer _contentKey;
+    private  String _content;
 
 
-    public MessageRequest(Request messageRequest, Array metadata,
-                          Message content)
+    public MessageRequest(Request messageRequest, RequestNumber metadata, Integer contentKey, String content)
     {
-        this.messageRequest = messageRequest;
-        this.metadata = metadata;
-        this.content = content;
-
+        this._messageRequest = messageRequest;
+        this._metadata = metadata;
+        this._contentKey = contentKey;
+        this._content = content;
     }
 
-    public Request getRequest() {
-        return messageRequest;
+    public MessageRequest(Request messageRequest, RequestNumber metadata, Integer contentKey)
+    {
+        this._messageRequest = messageRequest;
+        this._metadata = metadata;
+        this._contentKey = contentKey;
+        this._content = "";
     }
-
-    public Message getContent() {
-        return content;
-    }
-
-    public Array getMetadata() {
-        return metadata;
-    }
+    public MessageRequest(){}
 }
+
+

@@ -1,12 +1,13 @@
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
-@Getter
 @Setter
+@Getter
 public class KintGUI
 {
     private JButton Read;
@@ -18,88 +19,88 @@ public class KintGUI
     private JButton Update;
     private JButton HeartBeatOnButton;
     private JButton HeartBeatOffButton;
+
     private JPanel mainGUI;
     private JButton turnOffButton;
+    private JRadioButton node0RadioButton;
     private JRadioButton node1RadioButton;
     private JRadioButton node2RadioButton;
-    private JRadioButton node4RadioButton;
-    private JRadioButton node3RadioButton;
     private KintMainNode kintMainNode;
+
+    private Timer timer;
 
     public KintGUI(){
 
-        Delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+        Delete.addActionListener(e -> {
+            try
+            {
+                kintMainNode.remove(Integer.parseInt(Key.getText()));
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
             }
         });
 
-
-        Read.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+        Read.addActionListener(e -> {
+            try
+            {
+                kintMainNode.read(Integer.parseInt(Key.getText()));
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
             }
         });
 
-        Write.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Write.addActionListener(e -> {
 
+            try
+            {
+                kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
+            }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
             }
         });
 
-        Update.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
+        Update.addActionListener(e -> {
+            try
+            {
+                kintMainNode.create(Integer.parseInt(Key.getText()),Value.getText());
             }
+            catch (JsonProcessingException jsonProcessingException)
+            {
+                jsonProcessingException.printStackTrace();
+            }
+
         });
 
-        HeartBeatOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
+        HeartBeatOnButton.addActionListener(e -> {
+            kintMainNode.sendHeartbeat(5000L);
         });
 
-        Key.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        turnOffButton.addActionListener(e -> {        });
 
-            }
-        });
-
-        Value.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        AntwortText.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        turnOffButton.addActionListener(e -> {});
+        node0RadioButton.addActionListener(e -> {});
 
         node1RadioButton.addActionListener(e -> {});
 
         node2RadioButton.addActionListener(e -> {});
 
-        node3RadioButton.addActionListener(e -> {});
-
-        node4RadioButton.addActionListener(e -> {});
-
-        HeartBeatOffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
+        HeartBeatOffButton.addActionListener(e -> {
+            kintMainNode.turnOffSendHeartbeat();
         });
+
+        timer = new Timer();
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                AntwortText.setText(kintMainNode.getResponse());
+            }
+        }, 5000, 3000L);
+
     }
    }
