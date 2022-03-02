@@ -24,11 +24,9 @@ public class KintMainNode extends ApplicationNode
     private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
     private Timer timer;
 
-   // private HashMap<Integer, String> _storage = _localeStorage.getStorage();
+    //private HashMap<Integer, String> _storage = _localeStorage.getStorage();
     //Address allen Knoten im Netz
     //private Set<DrasylAddress> _addressSet = new HashSet<>();
-
-
 
 
 
@@ -246,7 +244,7 @@ public class KintMainNode extends ApplicationNode
         return Common.WAITINGONRESPONSE;
     }
 
-    private int calculateHashSum(int key){
+    private int calculateHashSum(int key) {
         return key % (Common.SUMOFNODE-1);  //hash funktion
     }
 
@@ -314,6 +312,10 @@ public class KintMainNode extends ApplicationNode
             }
         }
         System.out.println("Event received: " + event);
+    }
+
+    private void removeRequestNumberFromRequestTasks(MessageRequest messageRequest){
+        _requestTasks.removeRequestNumber(messageRequest.get_metadata());
     }
 
 

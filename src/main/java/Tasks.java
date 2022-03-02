@@ -28,7 +28,7 @@ public class Tasks {
     }
 
     public void removeRequestNumber(RequestNumber oldRequestNumber){
-        //TODO remove oldRequestNumber from Set
+        _taskSet.remove(oldRequestNumber);
     }
 
   /*  public void addRequestNumber(){
