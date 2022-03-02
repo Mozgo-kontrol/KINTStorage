@@ -283,6 +283,7 @@ public class KintMainNode extends ApplicationNode
                                            getAddressHashMapSize() - 1));
 
                            send(sender, Common.NODEREGISTERED);
+                           showMeNodes();
                        }
 
                        else{
@@ -318,6 +319,16 @@ public class KintMainNode extends ApplicationNode
         _requestTasks.removeRequestNumber(messageRequest.get_metadata());
     }
 
+
+    private void showMeNodes(){
+        System.out.println(" In the List: ");
+
+        for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
+        {
+            System.out.println("Node with key :" + entry.getKey()+"< "+entry.getValue()+" >");
+        }
+        System.out.println(" In the List: ");
+    }
 
     private void removeAddressFromHashMap(DrasylAddress address){
 
