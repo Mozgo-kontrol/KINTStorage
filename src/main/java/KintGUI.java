@@ -22,6 +22,7 @@ public class KintGUI
     private JCheckBox CheckBox;
 
     private JPanel mainGUI;
+    private JButton turnOffButton;
     private KintMainNode kintMainNode;
 
     private Timer timer;
