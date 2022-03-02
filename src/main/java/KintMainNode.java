@@ -20,9 +20,6 @@ public class KintMainNode extends ApplicationNode
     private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
     private Timer timer;
 
-    //private HashMap<Integer, String> _storage = _localeStorage.getStorage();
-    //Address allen Knoten im Netz
-    //private Set<DrasylAddress> _addressSet = new HashSet<>();
 
 
 
@@ -43,10 +40,6 @@ public class KintMainNode extends ApplicationNode
 
     private Integer getAddressHashMapSize(){
        return _addressHashMap.size();
-    }
-
-    private Integer getNaechstefreieStelle(){
-        return _addressHashMap.size()-1;
     }
 
     @Override
@@ -90,6 +83,14 @@ public class KintMainNode extends ApplicationNode
                         System.out.println("Gesendet an: " + entry.getValue() + " Payload: " + payload);
                     }
                 }
+
+                for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
+                {
+                    if(entry.getKey()!=0){
+
+                    }
+                }
+
 
             }
         }, 0, intervall);
@@ -291,8 +292,12 @@ public class KintMainNode extends ApplicationNode
 
             else if (message.equals(Common.HEARTBEAT)) {
 
+
                 System.out.println(" Heartbeat received von Node" + sender);
+                //
             }
+
+
 
             else if (message.equals("NodeShutdown"))
             {
