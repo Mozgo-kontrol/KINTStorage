@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.drasyl.identity.DrasylAddress;
 import org.drasyl.node.DrasylConfig;
 import org.drasyl.node.DrasylException;
-import org.drasyl.node.event.Event;
-import org.drasyl.node.event.MessageEvent;
-import org.drasyl.node.event.NodeOnlineEvent;
+import org.drasyl.node.event.*;
 import org.json.simple.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -253,10 +251,30 @@ public class KintMainNode extends ApplicationNode
     {
         if (event instanceof NodeOnlineEvent) {
 
-            _addressHashMap.put(0, ((NodeOnlineEvent) event).getNode().getIdentity().getAddress());
+            _addressHashMap.put(0, (
+                    (NodeOnlineEvent) event)
+                    .getNode()
+                    .getIdentity()
+                    .getAddress());
             _online = true;
 
         }
+        if (event instanceof NodeOfflineEvent) {
+
+            turnOff();
+            _online = false;
+            System.out.println("Node is Offline:");
+            
+        }
+
+        if (event instanceof NodeDownEvent) {
+
+            turnOff();
+            _online = false;
+            System.out.println("Node Down is Down");
+
+        }
+
 
         if (event instanceof MessageEvent) {
 
@@ -284,7 +302,6 @@ public class KintMainNode extends ApplicationNode
                            send(sender, Common.NODEREGISTERED);
                            showMeNodes();
                        }
-
                        else{
                            System.out.println(
                                    "Node is registered and is in the list!");
