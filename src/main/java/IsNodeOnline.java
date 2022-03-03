@@ -1,4 +1,5 @@
 import lombok.Getter;
+import org.drasyl.identity.DrasylAddress;
 
 import java.util.ArrayList;
 import java.util.List;
