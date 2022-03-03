@@ -68,7 +68,7 @@ public class Utility
             {
                 Properties properties = new Properties();
                 for (Map.Entry<Integer,String> entry : hashmap.entrySet()) {
-                    properties.put(entry.getKey(), entry.getValue());
+                    properties.put(entry.getKey().toString(), entry.getValue());
                 }
                 properties.store(new FileOutputStream("data.properties"), null);
             }

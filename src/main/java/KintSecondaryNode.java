@@ -91,7 +91,7 @@ public class KintSecondaryNode extends ApplicationNode
 
                     System.out.println("Super node SuperShutdown");
                     // Save to file
-                    Utility.saveHashmapToFile(_localeStorage.getStorage());
+                    //Utility.saveHashmapToFile(_localeStorage.getStorage());
                     shutdown();
                     System.exit(0);
                 }
