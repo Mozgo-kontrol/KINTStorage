@@ -88,10 +88,6 @@ public class KintGUI
         });
 
 
-        node2RadioButton.addActionListener(e -> {});//nötig?
-
-        node3RadioButton.addActionListener(e -> {});//nötig?
-
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
         });
