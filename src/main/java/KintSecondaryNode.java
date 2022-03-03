@@ -90,6 +90,8 @@ public class KintSecondaryNode extends ApplicationNode
                 case (Common.SUPERSHUTDOWN) -> {
 
                     System.out.println("Super node SuperShutdown");
+                    // Save to file
+                    Utility.saveHashmapToFile(_localeStorage.getStorage());
                     shutdown();
                     System.exit(0);
                 }

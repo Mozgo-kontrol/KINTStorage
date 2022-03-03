@@ -56,8 +56,9 @@ public class KintMainNode extends ApplicationNode
             // do what you have to do here
             // In your case, another loop.
         }
+
         // Save to file
-        //Utility.saveHashmapToFile(_storage);
+        Utility.saveHashmapToFile(_localeStorage.getStorage());
         System.out.println("Turning off");
         timer.cancel();
         shutdown();
