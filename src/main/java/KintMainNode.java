@@ -277,15 +277,14 @@ public class KintMainNode extends ApplicationNode
                                            + (getAddressHashMapSize() - 1) + " and Address "
                                            + _addressHashMap.get(
                                            getAddressHashMapSize() -1));
-
-                           send(sender, Common.NODEREGISTERED);
-                           showMeNodes();
                        }
                        else{
                            send(sender, Common.NODEREGISTERED);
                            System.out.println(
                                    "Node is registered and is in the list!");
                        }
+                send(sender, Common.NODEREGISTERED);
+                showMeNodes();
             }
 
             else if (message.equals(Common.HEARTBEAT)) {
