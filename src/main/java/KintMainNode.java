@@ -47,10 +47,12 @@ public class KintMainNode extends ApplicationNode
     {
         for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
         {
-            send(entry.getValue(),"SuperShutdown").exceptionally(e -> {
-                throw new RuntimeException(
-                        "Unable to process message.", e);
+            if(entry.getKey()!=0)
+            {
+            send(entry.getValue(), "SuperShutdown").exceptionally(e -> {
+                throw new RuntimeException("Unable to process message.", e);
             });
+        }
             // do what you have to do here
             // In your case, another loop.
         }
