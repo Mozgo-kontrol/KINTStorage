@@ -16,6 +16,7 @@ public class Common
     public final static String NOMAPPINGFORKEYFOUND = "No mapping for key found";
     public final static String UNABLETOEXECUTE= "Unable to execute message";
     public final static String WAITINGONRESPONSE= "Waiting on response";
+    public final static String PLEASECHOOSEOTHERKEY= "Node offline. Please choose key from other node";
 
     public final static String RECONNECT = "reconnect";
 

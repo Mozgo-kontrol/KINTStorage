@@ -52,7 +52,6 @@ public class KintApplication
 
     }
 
-
     public static void createMainNode(DrasylConfig config)
     {
         try {

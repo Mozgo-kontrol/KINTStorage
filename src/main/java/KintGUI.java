@@ -22,9 +22,9 @@ public class KintGUI
 
     private JPanel mainGUI;
     private JButton turnOffButton;
-    private JRadioButton node0RadioButton;
     private JRadioButton node1RadioButton;
     private JRadioButton node2RadioButton;
+    private JRadioButton node3RadioButton;
     private KintMainNode kintMainNode;
 
     private Timer timer;
@@ -86,20 +86,7 @@ public class KintGUI
             kintMainNode.turnOff();
 
         });
-        Timer timer2 = new Timer();
 
-        timer2.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                node0RadioButton.setSelected(false);
-                node1RadioButton.setSelected(false);
-            }
-        }, 5000, 3000L);
-
-
-        node1RadioButton.addActionListener(e -> {});
-
-        node2RadioButton.addActionListener(e -> {});
 
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
@@ -110,9 +97,45 @@ public class KintGUI
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                AntwortText.setText(kintMainNode.getResponse());
+                boolean responseTimeTooLong;
+                responseTimeTooLong = kintMainNode.getResponse().contains(Common.WAITINGONRESPONSE);
+                if (responseTimeTooLong && kintMainNode.getResponse().contains("1")) {
+                    if (kintMainNode.getIsNodeOnline(1)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else if (responseTimeTooLong && kintMainNode.getResponse().contains("2")) {
+                    if (kintMainNode.getIsNodeOnline(2)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else if (responseTimeTooLong && kintMainNode.getResponse().contains("3")) {
+                    if (kintMainNode.getIsNodeOnline(3)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else {
+                    AntwortText.setText(kintMainNode.getResponse());
+                }
+                node1RadioButton.setSelected(kintMainNode.getIsNodeOnline(1));
+                node2RadioButton.setSelected(kintMainNode.getIsNodeOnline(2));
+                node3RadioButton.setSelected(kintMainNode.getIsNodeOnline(3));
             }
         }, 5000, 3000L);
 
     }
-   }
+
+    private void createUIComponents()
+    {
+        // TODO: place custom component creation code here
+    }
+}

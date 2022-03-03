@@ -30,17 +30,6 @@ public class Utility
     {
     }
 
-    public static JSONObject parseJSON(String json) {
-
-        try {
-
-            return (JSONObject) PARSER.parse(json);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static MessageRequest parseJSONToMessageRequest(String json)
             throws JsonProcessingException

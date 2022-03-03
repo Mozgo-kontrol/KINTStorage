@@ -19,7 +19,7 @@ public class KintMainNode extends ApplicationNode
     private Tasks _requestTasks = new Tasks();
     private HashMap <Integer, DrasylAddress> _addressHashMap = new HashMap<>();
     private Timer timer;
-
+    private HashMap <DrasylAddress, IsNodeOnline> _isNodeOnlineHashMap = new HashMap<>();
 
 
 
@@ -47,10 +47,12 @@ public class KintMainNode extends ApplicationNode
     {
         for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
         {
-            send(entry.getValue(),"SuperShutdown").exceptionally(e -> {
-                throw new RuntimeException(
-                        "Unable to process message.", e);
+            if(entry.getKey()!=0)
+            {
+            send(entry.getValue(), "SuperShutdown").exceptionally(e -> {
+                throw new RuntimeException("Unable to process message.", e);
             });
+        }
             // do what you have to do here
             // In your case, another loop.
         }
@@ -84,14 +86,10 @@ public class KintMainNode extends ApplicationNode
                     }
                 }
 
-                for (Map.Entry<Integer, DrasylAddress> entry : _addressHashMap.entrySet())
+                for (Map.Entry<DrasylAddress, IsNodeOnline> entry : _isNodeOnlineHashMap.entrySet())
                 {
-                    if(entry.getKey()!=0){
-
-                    }
+                    entry.getValue().addMissingHeartbeat();//adds missing heartbeat every 5 secs
                 }
-
-
             }
         }, 0, intervall);
     }
@@ -148,7 +146,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.REMOVE, requestNumber,
                 key);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.OK;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     // Hilfsmethode
@@ -197,7 +195,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.GET, requestNumber,
                 key);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.OK;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     public void create(int key, String value)
@@ -237,7 +235,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,
                 key, value);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.WAITINGONRESPONSE;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     private int calculateHashSum(int key) {
@@ -274,27 +272,27 @@ public class KintMainNode extends ApplicationNode
             else if (message.equals(Common.REGISTERNODE)) {
 
                        if(!_addressHashMap.containsValue(sender)) {
+                           createOnlineEventIfNecessary(sender);
                            _addressHashMap.put(getAddressHashMapSize(), sender);
                            System.out.println(
                                    "Node is registered and is in the list with key "
                                            + (getAddressHashMapSize() - 1) + " and Address "
                                            + _addressHashMap.get(
                                            getAddressHashMapSize() -1));
-
-                           send(sender, Common.NODEREGISTERED);
-                           showMeNodes();
                        }
                        else{
+                           send(sender, Common.NODEREGISTERED);
                            System.out.println(
                                    "Node is registered and is in the list!");
                        }
+                send(sender, Common.NODEREGISTERED);
+                showMeNodes();
             }
 
             else if (message.equals(Common.HEARTBEAT)) {
-
-
                 System.out.println(" Heartbeat received von Node" + sender);
-                //
+                createOnlineEventIfNecessary(sender);
+                _isNodeOnlineHashMap.get(sender).addHeartbeat();//adds heartbeat to queue
             }
 
 
@@ -318,10 +316,40 @@ public class KintMainNode extends ApplicationNode
         System.out.println("Event received: " + event);
     }
 
+    /*
+    für die GUI
+     */
+    public boolean getIsNodeOnline(Integer secondaryNodeNumber){
+
+        if (_addressHashMap.get(secondaryNodeNumber) == null) {
+            return false;
+        }
+        if (_isNodeOnlineHashMap.get(_addressHashMap.get(secondaryNodeNumber)) == null) {
+            return false;
+        }
+        return _isNodeOnlineHashMap.get(_addressHashMap.get(secondaryNodeNumber)).getIsNodeOnline();
+    }
+
+    /*
+    für die GUI
+     */
+    public boolean getIsNodeOnline(DrasylAddress drasylAddress){
+        if (_isNodeOnlineHashMap.get(drasylAddress) == null) {
+            return false;
+        }
+        return _isNodeOnlineHashMap.get(drasylAddress).getIsNodeOnline();
+    }
+
     private void removeRequestNumberFromRequestTasks(MessageRequest messageRequest){
         _requestTasks.removeRequestNumber(messageRequest.get_metadata());
     }
 
+    private void createOnlineEventIfNecessary(DrasylAddress drasylAddress){
+        if (!_isNodeOnlineHashMap.containsKey(drasylAddress)) {
+            IsNodeOnline newIsNodeOnline = new IsNodeOnline();
+            _isNodeOnlineHashMap.put(drasylAddress, newIsNodeOnline);
+        }
+    }
 
     private void showMeNodes(){
         System.out.println(" In the List: ");
@@ -351,5 +379,6 @@ public class KintMainNode extends ApplicationNode
         }
 
     }
+
 
 }
