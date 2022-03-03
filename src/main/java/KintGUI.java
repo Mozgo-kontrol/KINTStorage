@@ -101,7 +101,35 @@ public class KintGUI
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                AntwortText.setText(kintMainNode.getResponse());
+                boolean responseTimeTooLong;
+                responseTimeTooLong = kintMainNode.getResponse().contains(Common.WAITINGONRESPONSE);
+                if (responseTimeTooLong && kintMainNode.getResponse().contains("1")) {
+                    if (kintMainNode.getIsNodeOnline(1)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else if (responseTimeTooLong && kintMainNode.getResponse().contains("2")) {
+                    if (kintMainNode.getIsNodeOnline(2)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else if (responseTimeTooLong && kintMainNode.getResponse().contains("3")) {
+                    if (kintMainNode.getIsNodeOnline(3)) {
+                        AntwortText.setText(kintMainNode.getResponse());
+                    }
+                    else {
+                        AntwortText.setText(Common.PLEASECHOOSEOTHERKEY);
+                    }
+                }
+                else {
+                    AntwortText.setText(kintMainNode.getResponse());
+                }
                 node1RadioButton.setSelected(kintMainNode.getIsNodeOnline(1));
                 node2RadioButton.setSelected(kintMainNode.getIsNodeOnline(2));
                 node3RadioButton.setSelected(kintMainNode.getIsNodeOnline(3));

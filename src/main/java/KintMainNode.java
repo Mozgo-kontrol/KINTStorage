@@ -144,7 +144,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.REMOVE, requestNumber,
                 key);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.OK;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     // Hilfsmethode
@@ -193,7 +193,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.GET, requestNumber,
                 key);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.OK;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     public void create(int key, String value)
@@ -233,7 +233,7 @@ public class KintMainNode extends ApplicationNode
         MessageRequest messageRequest = new MessageRequest(Request.POST, requestNumber,
                 key, value);
         sendMessage(messageRequest, requestNumber, receiverAddress);
-        return Common.WAITINGONRESPONSE;
+        return Common.WAITINGONRESPONSE + " from node " + receiverAddress;
     }
 
     private int calculateHashSum(int key) {
@@ -343,10 +343,7 @@ public class KintMainNode extends ApplicationNode
     }
 
     private void createOnlineEventIfNecessary(DrasylAddress drasylAddress){
-        if (_isNodeOnlineHashMap.containsKey(drasylAddress)) {
-            //do nothing
-        }
-        else {
+        if (!_isNodeOnlineHashMap.containsKey(drasylAddress)) {
             IsNodeOnline newIsNodeOnline = new IsNodeOnline();
             _isNodeOnlineHashMap.put(drasylAddress, newIsNodeOnline);
         }
