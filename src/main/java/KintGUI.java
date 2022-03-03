@@ -133,4 +133,9 @@ public class KintGUI
         }, 5000, 3000L);
 
     }
-   }
+
+    private void createUIComponents()
+    {
+        // TODO: place custom component creation code here
+    }
+}

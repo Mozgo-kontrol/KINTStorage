@@ -282,6 +282,7 @@ public class KintMainNode extends ApplicationNode
                            showMeNodes();
                        }
                        else{
+                           send(sender, Common.NODEREGISTERED);
                            System.out.println(
                                    "Node is registered and is in the list!");
                        }
