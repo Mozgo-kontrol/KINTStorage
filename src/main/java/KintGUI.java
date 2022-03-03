@@ -86,21 +86,11 @@ public class KintGUI
             kintMainNode.turnOff();
 
         });
-        Timer timer2 = new Timer();
-
-        timer2.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                node1RadioButton.setSelected(kintMainNode.getIsNodeOnline(1));
-                node2RadioButton.setSelected(kintMainNode.getIsNodeOnline(2));
-                node3RadioButton.setSelected(kintMainNode.getIsNodeOnline(3));
-            }
-        }, 5000, 3000L);
 
 
-        node2RadioButton.addActionListener(e -> {});
+        node2RadioButton.addActionListener(e -> {});//nötig?
 
-        node3RadioButton.addActionListener(e -> {});
+        node3RadioButton.addActionListener(e -> {});//nötig?
 
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();
@@ -112,6 +102,9 @@ public class KintGUI
             @Override
             public void run() {
                 AntwortText.setText(kintMainNode.getResponse());
+                node1RadioButton.setSelected(kintMainNode.getIsNodeOnline(1));
+                node2RadioButton.setSelected(kintMainNode.getIsNodeOnline(2));
+                node3RadioButton.setSelected(kintMainNode.getIsNodeOnline(3));
             }
         }, 5000, 3000L);
 
