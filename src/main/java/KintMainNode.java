@@ -124,7 +124,6 @@ public class KintMainNode extends ApplicationNode
 
         int keyOfRemoveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfRemoveNode );
-        String result;
         if(keyOfRemoveNode==0){
             System.out.println("remove in local");
             _response = removeInLocalStorage(key);
@@ -203,19 +202,13 @@ public class KintMainNode extends ApplicationNode
 
         int keyOfSaveNode = calculateHashSum(key);
         System.out.println("SpeicherOrt :" + keyOfSaveNode );
-
-        String result;
         if(keyOfSaveNode==0) {
             System.out.println("create Local");
-            result = createInLocalStorage(key, value);
-            if(result.equals(Common.OK)){
-               result = result +" : in key : "+key+" value : "+ value;
-                _response = result;
-            }
+            _response = createInLocalStorage(key, value);
         }
         else {
-            result = createRemoteLocalStorage(keyOfSaveNode, key,value);
-            _response = result;
+            System.out.println("create in remote");
+            _response = createRemoteLocalStorage(keyOfSaveNode, key,value);
         }
     }
 
