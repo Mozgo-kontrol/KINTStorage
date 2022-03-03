@@ -22,9 +22,9 @@ public class KintGUI
 
     private JPanel mainGUI;
     private JButton turnOffButton;
-    private JRadioButton node0RadioButton;
     private JRadioButton node1RadioButton;
     private JRadioButton node2RadioButton;
+    private JRadioButton node3RadioButton;
     private KintMainNode kintMainNode;
 
     private Timer timer;
@@ -91,15 +91,16 @@ public class KintGUI
         timer2.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                node0RadioButton.setSelected(false);
-                node1RadioButton.setSelected(false);
+                node1RadioButton.setSelected(kintMainNode.getIsNodeOnline(1));
+                node2RadioButton.setSelected(kintMainNode.getIsNodeOnline(2));
+                node3RadioButton.setSelected(kintMainNode.getIsNodeOnline(3));
             }
         }, 5000, 3000L);
 
 
-        node1RadioButton.addActionListener(e -> {});
-
         node2RadioButton.addActionListener(e -> {});
+
+        node3RadioButton.addActionListener(e -> {});
 
         HeartBeatOffButton.addActionListener(e -> {
             kintMainNode.turnOffSendHeartbeat();

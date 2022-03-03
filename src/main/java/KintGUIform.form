@@ -277,32 +277,32 @@
           </grid>
         </constraints>
       </vspacer>
-      <component id="f43a6" class="javax.swing.JRadioButton" binding="node0RadioButton" default-binding="true">
+      <component id="f43a6" class="javax.swing.JRadioButton" binding="node1RadioButton">
         <constraints>
           <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <enabled value="false"/>
-          <text value="Node0"/>
-        </properties>
-      </component>
-      <component id="5d102" class="javax.swing.JRadioButton" binding="node1RadioButton" default-binding="true">
-        <constraints>
-          <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="false"/>
           <text value="Node1"/>
         </properties>
       </component>
-      <component id="4d244" class="javax.swing.JRadioButton" binding="node2RadioButton" default-binding="true">
+      <component id="5d102" class="javax.swing.JRadioButton" binding="node2RadioButton">
+        <constraints>
+          <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <text value="Node2"/>
+        </properties>
+      </component>
+      <component id="4d244" class="javax.swing.JRadioButton" binding="node3RadioButton">
         <constraints>
           <grid row="11" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <enabled value="false"/>
           <selected value="false"/>
-          <text value="Node2"/>
+          <text value="Node3"/>
         </properties>
       </component>
     </children>
